@@ -1,24 +1,29 @@
 "use client"
 import { useEffect, useState } from "react";
+import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import { IconContext } from "react-icons";
 
 
-// TODO: store light/dark mode preference so doesnt get lost upon page refresh
 
-export default function ThemeToggleBtn() {
-  const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add("dark-mode");
-    } else {
-      root.classList.remove("dark-mode");
-    }
-  }, [isDark]);
+export default function ThemeTogglerBtn() {
+    const [isDark, setIsDark] = useState(false);
 
-  return (
-    <button onClick={() => setIsDark(!isDark)}>
-      {isDark ? "🌙 Dark" : "☀️ Light"}
-    </button>
-  );
+    useEffect(() => {
+        const root = document.documentElement;
+        if (isDark) {
+            root.classList.add("dark-mode");
+        } else {
+            root.classList.remove("dark-mode");
+        }
+    }, [isDark]);
+
+    return (
+        <button className="theme-toggler-button" onClick={() => setIsDark(!isDark)}>
+            {isDark ? <IconContext.Provider value={{ color: "white" }} >
+                <MdOutlineLightMode className="icon" />
+            </IconContext.Provider> : <MdDarkMode className="icon" />
+            }
+        </button>
+    );
 }

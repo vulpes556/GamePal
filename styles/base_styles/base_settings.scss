@@ -53,14 +53,13 @@ video {
     padding: 0;
     border: 0;
     font-size: 100%;
-    color: $text;
     font-family: $font;
     vertical-align: baseline;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     text-size-adjust: none;
     text-decoration: none;
-    scroll-behavior: smooth;    
+    scroll-behavior: smooth;
 }
 
 footer,
@@ -72,9 +71,10 @@ main {
 }
 
 
-html{
-    transition: background-color 1s, color 1s;
+html {
+    transition: background-color 0.3s, color 0.3s;
     background-color: $background-light;
+    color: $text;
 
 }
 
@@ -89,7 +89,6 @@ h3,
 h4,
 h5,
 h6 {
-    color: $heading-text;
     font-family: $heading-font;
 }
 
@@ -119,63 +118,25 @@ button {
     padding: 0;
 }
 
-.wrapper {
-    max-width: 1440px;
-    margin-inline: auto;
-    padding-inline: 5rem;
+.theme-toggler-button {
+    background: none;
+    width: 2rem;
+    cursor: pointer;
 
-    @include respond(tablet-landscape) {
-        padding-inline: 1.5rem;
-    }
-
-    @include respond(phone) {
-        padding-inline: 0.75rem;
-    }
-}
-
-.main-title {
-    width: 100%;
-    text-align: center;
-    font-size: x-large;
-
-    h1 {
-        margin-bottom: 0;
-        color: $primary
-    }
-}
-
-.main-container {
-    max-width: 97%;
-    margin-inline: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-    overflow: hidden;
-    height: 100%;
-
-    &-cards {
+    .icon {
+        width: 100%;
         height: 100%;
-
-        @include respond(tablet-landscape) {
-            margin-inline: auto;
-        }
     }
-
-
-    @include respond(tablet-portrait) {
-        flex-direction: column;
-        padding-top: 2rem;
-        padding: 1rem;
-        max-width: 100%;
-        overflow: scroll;
-    }
-
 }
 
 
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+}
 
 .dark-mode {
     background-color: $background;
-    color: #ffffff;
+    color: $text-light;
 }
