@@ -1,3 +1,4 @@
+import FeaturedGames from "@/components/FeaturedGames/FeaturedGames";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
         <p>Connect with other players and enjoy your favourite games together</p>
         <input type="text" placeholder="Search for games" />
       </div>
+      <FeaturedGames />
     </div>
   );
 }
