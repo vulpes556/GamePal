@@ -142,40 +142,19 @@ button {
 .dark-mode {
     background-color: $background;
     color: $text-light;
+}
 
-    .primary-button {
-        background-color: $button-background-dark;
+.dark-mode .primary-button {
+    background-color: $button-background-dark;
 
-        &:hover {
-            box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
-        }
-    }
-
-
-
-    input {
-        text-align: center;
-        font-weight: 500;
-        font-size: larger;
-        border: solid white 1px;
-        border-radius: 10px;
-        height: 2rem;
-        transition: box-shadow 0.2s ease-in;
-
-        &:hover {
-            box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
-        }
-
-        &:active {
-            outline: none;
-        }
-
-        &:focus {
-            box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
-            outline: none;
-        }
+    &:hover {
+        box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
     }
 }
+
+
+
+
 
 .primary-button {
     background-color: $button-background-light;
