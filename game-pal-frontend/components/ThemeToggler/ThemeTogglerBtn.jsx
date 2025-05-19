@@ -2,24 +2,33 @@
 import { useEffect, useState } from "react";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { IconContext } from "react-icons";
+import { useAppContext } from "@/context/AppContext";
 
 
 
 
 export default function ThemeTogglerBtn() {
-    const [isDark, setIsDark] = useState(false);
+    const { setTheme } = useAppContext();
+    const [isDark, setIsDark] = useState(null);
+
 
     useEffect(() => {
-        const root = document.documentElement;
+        const defaultDarkState = localStorage.getItem("theme") === "dark-mode";
+        setIsDark(defaultDarkState);
+    }, [])
+
+    function themeSwitcher() {
+        setIsDark(!isDark);
+
         if (isDark) {
-            root.classList.add("dark-mode");
+            setTheme("light-mode")
         } else {
-            root.classList.remove("dark-mode");
+            setTheme("dark-mode")
         }
-    }, [isDark]);
+    }
 
     return (
-        <button className="theme-toggler-button" onClick={() => setIsDark(!isDark)}>
+        <button className="theme-toggler-button" onClick={themeSwitcher}>
             {isDark ? <IconContext.Provider value={{ color: "white" }} >
                 <MdOutlineLightMode className="icon" />
             </IconContext.Provider> : <MdDarkMode className="icon" />
