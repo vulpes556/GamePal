@@ -1,7 +1,12 @@
 .main-page {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+
 
     .welcome-div {
         display: flex;
@@ -12,6 +17,8 @@
         p {
             font-size: large;
             font-weight: 500;
+            text-overflow: wrap;
+            text-wrap: wrap;
         }
 
         input {
@@ -22,6 +29,9 @@
             border-radius: 10px;
             height: 2rem;
             transition: box-shadow 0.1s ease-in;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: 100%;
 
             &:hover {
                 box-shadow: black 0px 0px 4px 3px;
