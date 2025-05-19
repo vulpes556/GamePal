@@ -1,4 +1,5 @@
 import FeaturedGames from "@/components/FeaturedGames/FeaturedGames";
+import HowItWorks from "@/components/HowItWorks/HowItWorks";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <input type="text" placeholder="Search for games" />
       </div>
       <FeaturedGames />
+      <HowItWorks />
     </div>
   );
 }

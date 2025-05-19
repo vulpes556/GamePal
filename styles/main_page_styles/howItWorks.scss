@@ -1,0 +1,39 @@
+.how-it-works-main {
+    display: flex;
+    flex-direction: column;
+    text-align: flex-start;
+    width: 52%;
+}
+
+.how-it-works-sub {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    gap: 2rem;
+
+    p {
+        font-weight: 500;
+    }
+
+    h4 {
+        margin-top: 0.5rem;
+    }
+
+    .how-it-works-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.icon-container {
+    width: 3rem;
+    height: 3rem;
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
