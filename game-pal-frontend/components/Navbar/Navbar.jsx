@@ -5,10 +5,18 @@ export default function Navbar() {
     return (
         <div className="navbar">
             <div className="logo-name">
-            <h1> <SiYoutubegaming /> GAMEPAL</h1>
+                <h1> <SiYoutubegaming /> GamePal</h1>
             </div>
-            <div className="theme-toggler">
-            <ThemeToggleBtn/>
+            <div className="navbar-right">
+                <div className="login-sign-up">
+                    <button className="primary-button">
+                        Login
+                    </button>
+                    <button className="primary-button">
+                        Sign Up
+                    </button>
+                </div>
+                <ThemeToggleBtn />
             </div>
         </div>
     )

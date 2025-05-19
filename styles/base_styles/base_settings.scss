@@ -139,4 +139,40 @@ button {
 .dark-mode {
     background-color: $background;
     color: $text-light;
+
+    .primary-button {
+        background-color: $button-background-dark;
+
+        &:hover {
+            box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
+        }
+    }
+}
+
+.primary-button {
+    background-color: $button-background-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    height: 2rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2 ease;
+    font-family: $font;
+
+    &:hover {
+        box-shadow: black 0px 0px 4px 3px;
+    }
+
+    &:active {
+        // box-shadow: none;
+        transform: scale(0.9);
+    }
+
 }
