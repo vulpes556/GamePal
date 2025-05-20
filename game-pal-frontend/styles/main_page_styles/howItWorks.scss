@@ -1,8 +1,7 @@
 .how-it-works-main {
     display: flex;
     flex-direction: column;
-    text-align: flex-start;
-    width: 52%;
+    text-align: center;
 }
 
 .how-it-works-sub {
@@ -11,6 +10,11 @@
     justify-content: space-around;
     text-align: center;
     gap: 2rem;
+
+
+    @include respond(tablet-portrait) {
+        flex-direction: column;
+    }
 
     p {
         font-weight: 500;

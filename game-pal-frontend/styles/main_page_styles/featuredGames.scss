@@ -1,7 +1,7 @@
 .featured-games-main {
     display: flex;
     flex-direction: column;
-    text-align: flex-start;
+    text-align: center;
 
 
     .img-container {
@@ -11,12 +11,21 @@
         position: relative;
     }
 
+
+
+    //later this should be a carusel
     .game-cards {
         display: flex;
         flex-direction: row;
         gap: 1rem;
         text-align: center;
         margin: 1rem;
+
+
+
+        @include respond(tablet-portrait) {
+            flex-direction: column;
+        }
     }
 
 
@@ -31,6 +40,7 @@
             cursor: pointer;
         }
     }
+
 
 
 }
