@@ -34,9 +34,10 @@ app.Run();
 
 void AddDb(WebApplicationBuilder builder)
 {
+
+
     builder.Services.AddDbContext<DBContext>(options =>
     {
-        options.UseSqlServer(
-            builder.Configuration["DbConnectionString"]);
+        options.UseNpgsql(builder.Configuration["DbConnectionString"]);
     });
 }
