@@ -1,7 +1,16 @@
+"use client"
 import FeaturedGames from "@/components/FeaturedGames/FeaturedGames";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
+import { fetchUserGames } from "@/scripts/scripts";
+import { useEffect } from "react";
 
 export default function Home() {
+
+
+  useEffect(() => {
+    fetchUserGames();
+  }, [])
+
   return (
     <div className="main-page">
       <div className="welcome-div">
