@@ -1,4 +1,5 @@
 using GamePal.Context;
+using GamePal.Services.GameServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 
 AddDb(builder);
-
+AddServices(builder);
 
 var app = builder.Build();
 
@@ -40,4 +41,10 @@ void AddDb(WebApplicationBuilder builder)
     {
         options.UseNpgsql(builder.Configuration["DbConnectionString"]);
     });
+}
+
+
+void AddServices(WebApplicationBuilder builder)
+{
+    builder.Services.AddScoped<IGameService, GameService>();
 }
