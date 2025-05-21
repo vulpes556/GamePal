@@ -1,5 +1,8 @@
 using GamePal.Context;
+using GamePal.Repositories.GameRepo;
+using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
+using GamePal.Services.UserGameServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,4 +50,7 @@ void AddDb(WebApplicationBuilder builder)
 void AddServices(WebApplicationBuilder builder)
 {
     builder.Services.AddScoped<IGameService, GameService>();
+    builder.Services.AddScoped<IGameRepo, GameRepo>();
+    builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
+    builder.Services.AddScoped<IUserGameService, UserGameService>();
 }

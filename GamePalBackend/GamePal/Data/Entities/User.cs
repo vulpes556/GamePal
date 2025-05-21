@@ -7,7 +7,7 @@ namespace GamePal.Data.Entities
 
         public Country Country { get; set; }
         public GamingPreference GamingPreference { get; set; }
-        public ICollection<Game> Games { get; set; }
+        public ICollection<UserGame> Games { get; set; }
 
     }
 }

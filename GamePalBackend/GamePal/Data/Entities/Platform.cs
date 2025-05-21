@@ -1,10 +1,9 @@
-﻿using GamePal.Data.DataEnums;
-
-namespace GamePal.Data.Entities
+﻿namespace GamePal.Data.Entities
 {
-    public class Game
+    public class Platform
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
     }
 }
