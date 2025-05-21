@@ -1,0 +1,46 @@
+.featured-games-main {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+
+    .img-container {
+        width: 10rem;
+        height: 10rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+
+
+    //later this should be a carusel
+    .game-cards {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        text-align: center;
+        margin: 1rem;
+
+
+
+        @include respond(tablet-portrait) {
+            flex-direction: column;
+        }
+    }
+
+
+    .game-card-main {
+        border: 1px black solid;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+        border-radius: 5px;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+    }
+
+
+
+}

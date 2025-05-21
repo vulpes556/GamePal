@@ -1,0 +1,27 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+
+    .logo-name {
+        margin-right: auto;
+        margin-left: 2rem;
+    }
+
+    .navbar-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: 4rem;
+        gap: 1rem;
+    }
+
+    .login-sign-up {
+        display: flex;
+        gap: 1rem;
+    }
+
+}

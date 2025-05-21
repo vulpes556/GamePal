@@ -1,0 +1,184 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+figure,
+p,
+blockquote,
+pre,
+a,
+code,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+main,
+canvas,
+embed,
+footer,
+header,
+nav,
+section,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: $font;
+    vertical-align: baseline;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+}
+
+footer,
+header,
+nav,
+section,
+main {
+    display: block;
+}
+
+
+html {
+    transition: background-color 0.3s, color 0.3s;
+    background-color: $background-light;
+    color: $text;
+
+}
+
+body {
+    line-height: 1;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading-font;
+}
+
+
+ol,
+ul {
+    list-style: none;
+}
+
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input,
+textarea {
+    border-radius: 0;
+    color: $text;
+    font-family: $font;
+}
+
+button {
+    color: $text;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.theme-toggler-button {
+    background: none;
+    width: 2rem;
+    cursor: pointer;
+
+    .icon {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+}
+
+
+// DARK MODE SETTINGS
+
+.dark-mode {
+    background-color: $background;
+    color: $text-light;
+}
+
+.dark-mode .primary-button {
+    background-color: $button-background-dark;
+
+    &:hover {
+        box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
+    }
+}
+
+
+
+
+
+.primary-button {
+    background-color: $button-background-light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    height: 2rem;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2 ease;
+    font-family: $font;
+
+    &:hover {
+        box-shadow: black 0px 0px 4px 3px;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+}
