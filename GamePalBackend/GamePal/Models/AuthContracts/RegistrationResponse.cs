@@ -1,4 +1,4 @@
-﻿namespace LadleMeThis.Models.AuthContracts
+﻿namespace GamePal.Models.AuthContracts
 {
     public record RegistrationResponse(
         string Email,

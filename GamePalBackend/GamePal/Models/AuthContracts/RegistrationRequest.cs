@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LadleMeThis.Models.AuthContracts
+namespace GamePal.Models.AuthContracts
 {
     public record RegistrationRequest(
         [Required] string Email,
