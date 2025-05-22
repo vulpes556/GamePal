@@ -4,9 +4,12 @@ using GamePal.Repositories.GameRepo;
 using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
 using GamePal.Services.UserGameServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,4 +109,38 @@ void AddIdentityServices(WebApplicationBuilder builder)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<DBContext>();
 
+}
+
+void AddAuthentication(WebApplicationBuilder builder)
+{
+    builder.Services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.Events = new JwtBearerEvents
+            {
+                OnMessageReceived = context =>
+                {
+                    var token = context.Request.Cookies["AuthToken"];
+                    if (!string.IsNullOrEmpty(token))
+                        context.Token = token;
+
+                    return Task.CompletedTask;
+                }
+            };
+
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ClockSkew = TimeSpan.Zero,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["ValidIssuer"],
+                ValidAudience = builder.Configuration["ValidAudience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["IssuerSigningKey"])
+                ),
+            };
+        });
 }
