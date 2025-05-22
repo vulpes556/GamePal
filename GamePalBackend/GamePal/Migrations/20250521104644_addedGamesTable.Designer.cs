@@ -3,6 +3,7 @@ using System;
 using GamePal.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GamePal.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20250521104644_addedGamesTable")]
+    partial class addedGamesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace GamePal.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("GameGameCategory", b =>
-                {
-                    b.Property<int>("CategoriesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("GamesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("CategoriesId", "GamesId");
-
-                    b.HasIndex("GamesId");
-
-                    b.ToTable("GameGameCategory");
-                });
 
             modelBuilder.Entity("GamePal.Data.Entities.Country", b =>
                 {
@@ -66,26 +54,17 @@ namespace GamePal.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("GamePal.Data.Entities.GameCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Platform")
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("UserId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameCategories");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("GamePal.Data.Entities.GamingPreference", b =>
@@ -136,23 +115,6 @@ namespace GamePal.Migrations
                     b.HasIndex("GamingPreferenceId");
 
                     b.ToTable("Languages");
-                });
-
-            modelBuilder.Entity("GamePal.Data.Entities.Platform", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Platforms");
                 });
 
             modelBuilder.Entity("GamePal.Data.Entities.User", b =>
@@ -222,34 +184,6 @@ namespace GamePal.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("GamePal.Data.Entities.UserGame", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlatformId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId");
-
-                    b.HasIndex("PlatformId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserGames");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -384,19 +318,11 @@ namespace GamePal.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GameGameCategory", b =>
+            modelBuilder.Entity("GamePal.Data.Entities.Game", b =>
                 {
-                    b.HasOne("GamePal.Data.Entities.GameCategory", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GamePal.Data.Entities.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("GamePal.Data.Entities.User", null)
+                        .WithMany("Games")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("GamePal.Data.Entities.GamingPreference", b =>
@@ -425,31 +351,6 @@ namespace GamePal.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("GamePal.Data.Entities.UserGame", b =>
-                {
-                    b.HasOne("GamePal.Data.Entities.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GamePal.Data.Entities.Platform", "Platform")
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GamePal.Data.Entities.User", "User")
-                        .WithMany("Games")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Platform");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

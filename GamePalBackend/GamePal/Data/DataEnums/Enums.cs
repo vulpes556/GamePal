@@ -23,13 +23,5 @@
             Competetive,
         }
 
-        public enum Platform
-        {
-            PC,
-            PlayStation,
-            Xbox,
-            NintendoSwitch,
-        }
-
     }
 }

@@ -8,10 +8,12 @@ namespace GamePal.Controllers
     public class GameController : ControllerBase
     {
         private IGameService _gameService;
+        private ILogger<GameController> _logger;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, ILogger<GameController> logger)
         {
             _gameService = gameService;
+            _logger = logger;
         }
 
         [HttpGet()]
@@ -24,7 +26,7 @@ namespace GamePal.Controllers
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex.Message);
+                _logger.LogError(ex.Message);
                 return NotFound();
             }
         }
