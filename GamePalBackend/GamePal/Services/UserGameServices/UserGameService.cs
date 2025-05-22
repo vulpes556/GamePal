@@ -25,6 +25,9 @@ namespace GamePal.Services.UserGameServices
                 GameId = userGame.Game.Id,
                 Name = userGame.Game.Name,
                 Platform = userGame.Platform.Name,
+                Categories = userGame.Game.Categories
+                     .Select(c => c.Name)
+                     .ToList()
             };
         }
     }

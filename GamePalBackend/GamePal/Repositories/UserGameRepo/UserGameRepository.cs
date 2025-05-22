@@ -15,8 +15,9 @@ namespace GamePal.Repositories.UserGameRepo
         public async Task<IEnumerable<UserGame>> GetAllWithoutUsersAsync()
         {
             return await _dbContext.UserGames
-                .Include(g => g.Platform)
-                .Include(g => g.Game)
+                .Include(ug => ug.Platform)
+                .Include(ug => ug.Game)
+                .ThenInclude(g => g.Categories)
                 .ToListAsync();
         }
     }

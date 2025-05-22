@@ -8,5 +8,6 @@ namespace GamePal.Models.GameModels
         public int GameId { get; set; }
         public string Name { get; set; }
         public string Platform { get; set; }
+        public ICollection<string> Categories { get; set; }
     }
 }
