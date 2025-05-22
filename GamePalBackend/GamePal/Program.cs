@@ -4,6 +4,7 @@ using GamePal.Repositories.GameRepo;
 using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
 using GamePal.Services.UserGameServices;
+using GamePal.Services.UserServices;
 using LadleMeThis.Services.TokenService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -33,6 +34,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+
+    var roles = new[] { "Admin", "User" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
 
     string email = "test@gmail.com";
     string password = "Test1234!";
@@ -94,6 +107,7 @@ void AddServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
     builder.Services.AddScoped<IUserGameService, UserGameService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
+    builder.Services.AddScoped<IUserService, UserService>();
 }
 
 void AddIdentityServices(WebApplicationBuilder builder)
