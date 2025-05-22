@@ -4,6 +4,7 @@ using GamePal.Repositories.GameRepo;
 using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
 using GamePal.Services.UserGameServices;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -91,7 +92,18 @@ void AddServices(WebApplicationBuilder builder)
 
 void AddIdentityServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddIdentity<User, IdentityRole>()
-        .AddEntityFrameworkStores<DBContext>()
-        .AddDefaultTokenProviders();
+    builder.Services
+    .AddIdentityCore<User>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<DBContext>();
+
 }
