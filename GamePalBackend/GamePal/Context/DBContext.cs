@@ -19,6 +19,7 @@ namespace GamePal.Context
         public DbSet<Game> Games { get; set; }
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<UserGame> UserGames { get; set; }
+        public DbSet<GameCategory> GameCategories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
