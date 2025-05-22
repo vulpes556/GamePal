@@ -8,9 +8,9 @@ namespace GamePal.Services.UserServices
     public class UserService : IUserService
     {
         UserManager<User> _userManager;
-        RoleManager<User> _roleManager;
+        RoleManager<IdentityRole> _roleManager;
         ITokenService _tokenService;
-        public UserService(UserManager<User> userManager, RoleManager<User> roleManager, ITokenService tokenService)
+        public UserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ITokenService tokenService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
