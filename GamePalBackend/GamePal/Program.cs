@@ -4,6 +4,7 @@ using GamePal.Repositories.GameRepo;
 using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
 using GamePal.Services.UserGameServices;
+using LadleMeThis.Services.TokenService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,7 @@ builder.Services.AddSwaggerGen();
 AddDb(builder);
 AddServices(builder);
 AddIdentityServices(builder);
+AddAuthentication(builder);
 
 var app = builder.Build();
 
@@ -91,6 +93,7 @@ void AddServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<IGameRepo, GameRepo>();
     builder.Services.AddScoped<IUserGameRepository, UserGameRepository>();
     builder.Services.AddScoped<IUserGameService, UserGameService>();
+    builder.Services.AddScoped<ITokenService, TokenService>();
 }
 
 void AddIdentityServices(WebApplicationBuilder builder)
