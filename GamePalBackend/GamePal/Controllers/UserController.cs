@@ -41,6 +41,29 @@ namespace GamePal.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Authenticate([FromBody] AuthRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            var result = await _userService.LoginAsync(request);
+
+            var cookieOptions = new CookieOptions
+            {
+                Expires = DateTime.UtcNow.AddHours(1)
+            };
+
+            Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
+
+            if (result.Success)
+                return Ok();
+
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
         private void AddErrors(AuthResult result)
         {
             foreach (var error in result.ErrorMessages)

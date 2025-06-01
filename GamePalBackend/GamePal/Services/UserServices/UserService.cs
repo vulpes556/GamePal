@@ -45,6 +45,28 @@ namespace GamePal.Services.UserServices
             return new AuthResult(true, request.Email, request.Username, "");
         }
 
+        public async Task<AuthResult> LoginAsync(AuthRequest authRequest)
+        {
+            var user = await _userManager.FindByEmailAsync(authRequest.EmailOrUsername) ??
+                       await _userManager.FindByNameAsync(authRequest.EmailOrUsername);
+
+            if (user == null)
+            {
+                return InvalidEmail(authRequest.EmailOrUsername);
+            }
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, authRequest.Password);
+            if (!isPasswordValid)
+            {
+                return InvalidPassword(authRequest.EmailOrUsername, user.UserName);
+            }
+
+
+            var accessToken = await _tokenService.CreateToken(user);
+
+            return new AuthResult(true, user.Email, user.UserName, accessToken);
+        }
+
 
 
         private static AuthResult InvalidEmail(string email)
