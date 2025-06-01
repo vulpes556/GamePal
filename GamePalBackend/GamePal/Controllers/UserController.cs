@@ -45,25 +45,36 @@ namespace GamePal.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Authenticate([FromBody] AuthRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-
-            var result = await _userService.LoginAsync(request);
-
-            var cookieOptions = new CookieOptions
+            try
             {
-                Expires = DateTime.UtcNow.AddHours(1)
-            };
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
 
-            if (result.Success)
-                return Ok();
+                var result = await _userService.LoginAsync(request);
 
-            AddErrors(result);
-            return BadRequest(ModelState);
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTime.UtcNow.AddHours(1)
+                };
+
+                Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
+
+                if (result.Success)
+                    return Ok();
+
+                AddErrors(result);
+                return BadRequest(ModelState);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+
         }
+
+
         private void AddErrors(AuthResult result)
         {
             foreach (var error in result.ErrorMessages)
