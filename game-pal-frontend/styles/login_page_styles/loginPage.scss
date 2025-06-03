@@ -6,11 +6,21 @@
     height: 50%;
 }
 
+.account-creation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
 
 .login-box {
     border: black solid 1px;
-    width: 15rem;
+    border-radius: 5px;
+    width: 20rem;
     padding: 1rem;
+    box-shadow: 5px 5px 10px 1px;
 
 
     form {
