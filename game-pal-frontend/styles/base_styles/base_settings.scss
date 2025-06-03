@@ -104,12 +104,56 @@ table {
     border-spacing: 0;
 }
 
-input,
-textarea {
-    border-radius: 0;
-    color: $text;
-    font-family: $font;
+
+textarea,
+input {
+    text-align: center;
+    font-weight: 500;
+    font-size: larger;
+    border: solid white 1px;
+    border-radius: 10px;
+    height: 2rem;
+    transition: box-shadow 0.1s ease-in;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+
+    &:hover {
+        box-shadow: black 0px 0px 4px 3px;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+    }
+
+    &:focus {
+        box-shadow: black 0px 0px 4px 3px;
+    }
 }
+
+html.dark-mode {
+
+    textarea,
+    input {
+        border: solid white 1px;
+        color: $text-dark;
+
+        &:hover,
+        &:focus {
+            box-shadow: $button-box-shadow-dark 0px 0px 4px 3px;
+        }
+
+        &:active {
+            outline: none;
+        }
+    }
+
+}
+
+
+
+
 
 button {
     color: $text;
