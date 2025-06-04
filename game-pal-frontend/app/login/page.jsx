@@ -15,8 +15,16 @@ export default async function Login(props) {
           <form
             action={async (formData) => {
               "use server"
+              const email = formData.get("email")
+              const password = formData.get("password")
               try {
-                await signIn("credentials", formData)
+                const result = await signIn("credentials", {
+                  redirect: true,
+                  email,
+                  password,
+                  callbackUrl: "/",
+                  redirectTo: "/"
+                })
               } catch (error) {
                 if (error instanceof AuthError) {
                   return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)

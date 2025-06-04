@@ -1,5 +1,6 @@
 import ThemeToggleBtn from "../ThemeToggler/ThemeTogglerBtn";
 import { SiYoutubegaming } from "react-icons/si";
+import Link from "next/link";
 
 export default function Navbar() {
     return (
@@ -9,9 +10,11 @@ export default function Navbar() {
             </div>
             <div className="navbar-right">
                 <div className="login-sign-up">
-                    <button className="primary-button">
-                        Login
-                    </button>
+                    <Link href={"/login"}>
+                        <button className="primary-button">
+                            Login
+                        </button>
+                    </Link>
                     <button className="primary-button">
                         Sign Up
                     </button>

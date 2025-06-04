@@ -2,17 +2,23 @@ import NextAuth from "next-auth"
 import GitHub from "next-auth/providers/github"
 import Credentials from "next-auth/providers/credentials"
 
-
+const baseUrl = process.env.BACKEND_URL;
+// `${baseUrl}/user/login`
 const providers = [
   Credentials({
+    credentials: {
+      email: { label: "email", type: "text" },
+      password: { label: "password", type: "password" },
+    },
     async authorize(credentials, req) {
+      console.log("base url%%%%%%%%%%%%%:", baseUrl)
       try {
-        const res = await fetch("https://your-backend.com/api/login", {
+        const res = await fetch('http://localhost:5281/user/login', {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
+            EmailOrUsername: credentials.email,
+            Password: credentials.password,
           }),
         });
 

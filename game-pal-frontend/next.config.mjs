@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
+const baseUrl = process.env.BACKEND_URL;
 const nextConfig = {
-
     async rewrites() {
         return [
             {
                 source: "/api/:path((?!auth).*)", // Exclude /api/auth
-                destination: 'http://localhost:5281/:path*',
+                destination: `${baseUrl}/:path*`,
             },
         ];
     },
