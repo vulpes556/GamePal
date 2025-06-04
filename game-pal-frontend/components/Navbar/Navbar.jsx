@@ -12,12 +12,14 @@ export default function Navbar() {
                 <div className="login-sign-up">
                     <Link href={"/login"}>
                         <button className="primary-button">
-                            Login
+                            Log In
                         </button>
                     </Link>
-                    <button className="primary-button">
-                        Sign Up
-                    </button>
+                    <Link href={"/signup"}>
+                        <button className="primary-button">
+                            Sign Up
+                        </button>
+                    </Link>
                 </div>
                 <ThemeToggleBtn />
             </div>

@@ -1,9 +1,9 @@
 import NextAuth from "next-auth"
 import GitHub from "next-auth/providers/github"
 import Credentials from "next-auth/providers/credentials"
+import Google from "next-auth/providers/google"
 
 const baseUrl = process.env.BACKEND_URL;
-// `${baseUrl}/user/login`
 const providers = [
   Credentials({
     credentials: {
@@ -11,9 +11,8 @@ const providers = [
       password: { label: "password", type: "password" },
     },
     async authorize(credentials, req) {
-      console.log("base url%%%%%%%%%%%%%:", baseUrl)
       try {
-        const res = await fetch('http://localhost:5281/user/login', {
+        const res = await fetch(`${baseUrl}/user/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -41,6 +40,7 @@ const providers = [
     },
   }),
   GitHub,
+  Google,
 ]
 
 export const providerMap = providers

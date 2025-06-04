@@ -1,10 +1,11 @@
-.login-page-main {
+.signup-page-main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 50%;
 }
+
 
 .login-box {
     border: black solid 1px;
@@ -21,23 +22,4 @@
     }
 
 
-}
-
-.auth-providers {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    button {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        width: 100%;
-    }
-}
-
-
-.provider-icon {
-    display: flex;
 }

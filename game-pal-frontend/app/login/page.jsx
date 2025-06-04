@@ -1,8 +1,13 @@
 import PasswordField from "@/components/PasswordField/PasswordField"
-import Link from "next/link"
 import { redirect } from "next/navigation"
 import { signIn, auth, providerMap } from "../../auth.js"
 import { AuthError } from "next-auth"
+import { FaGithub, FaGoogle } from 'react-icons/fa';
+
+const providerIcons = {
+  github: <FaGithub />,
+  google: <FaGoogle />,
+};
 
 
 const SIGNIN_ERROR_URL = "/error"
@@ -44,30 +49,34 @@ export default async function Login(props) {
             <button type="submit" className="primary-button">Log In</button>
           </form>
         </div>
-        {Object.values(providerMap).map((provider) => (
-          <form
-            key={provider.id}
-            action={async () => {
-              "use server"
-              try {
-                await signIn(provider.id, {
-                  redirectTo: props.searchParams?.callbackUrl ?? "",
-                })
-              } catch (error) {
-                if (error instanceof AuthError) {
-                  return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
+        <div className="auth-providers">
+          {Object.values(providerMap).map((provider) => (
+            <form
+              key={provider.id}
+              action={async () => {
+                "use server"
+                try {
+                  await signIn(provider.id, {
+                    redirectTo: props.searchParams?.callbackUrl ?? "",
+                  })
+                } catch (error) {
+                  if (error instanceof AuthError) {
+                    return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
+                  }
+                  throw error
                 }
-                throw error
-              }
-            }}
-          >
-            <button type="submit" className="primary-button">
-              <span>Sign in with {provider.name}</span>
-            </button>
-          </form>
-        ))}
+              }}
+            >
+              <button type="submit" className="primary-button" >
+                <div className="provider-icon">
+                {providerIcons[provider.id] || null}
+                </div>
+                <span>Sign in with {provider.name}</span>
+              </button>
+            </form>
+          ))}
+        </div>
       </div>
-
     </div>
   )
 }
