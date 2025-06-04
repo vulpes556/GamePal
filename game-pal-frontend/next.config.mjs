@@ -4,7 +4,7 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: '/api/:path*',
+                source: "/api/:path((?!auth).*)", // Exclude /api/auth
                 destination: 'http://localhost:5281/:path*',
             },
         ];
