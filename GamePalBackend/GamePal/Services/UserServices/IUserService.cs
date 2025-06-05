@@ -6,5 +6,7 @@ namespace GamePal.Services.UserServices
     {
         Task<AuthResult> RegisterAsync(RegistrationRequest registerRequest, string role);
         Task<AuthResult> LoginAsync(AuthRequest authRequest);
+        Task<AuthResult> UpsertUserAsync(ExternalAuthRequest extAuthReq);
+
     }
 }

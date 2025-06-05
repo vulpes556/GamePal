@@ -1,5 +1,6 @@
 ﻿using GamePal.Models.AuthContracts;
 using GamePal.Services.UserServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamePal.Controllers
@@ -53,15 +54,25 @@ namespace GamePal.Controllers
 
                 var result = await _userService.LoginAsync(request);
 
-                var cookieOptions = new CookieOptions
-                {
-                    Expires = DateTime.UtcNow.AddHours(1)
-                };
-
-                Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
 
                 if (result.Success)
-                    return Ok();
+                {
+                    var cookieOptions = new CookieOptions
+                    {
+                        Expires = DateTime.UtcNow.AddHours(1)
+                    };
+
+                    Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
+
+                    return Ok(new
+                    {
+                        id = "123",
+                        name = "John Doe",
+                        email = "john@example.com"
+                    });
+                }
+
+
 
                 AddErrors(result);
                 return BadRequest(ModelState);
@@ -72,6 +83,22 @@ namespace GamePal.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+
+
+        [HttpPost("upsert")]
+        public async Task<IActionResult> UpsertUser([FromBody] ExternalAuthRequest extAuthReq)
+        {
+            try
+            {
+                await _userService.UpsertUserAsync(extAuthReq);
+                return Ok(new { succes = true });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message);
+                return BadRequest();
+            }
         }
 
 

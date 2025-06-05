@@ -1,6 +1,8 @@
 using GamePal.Context;
 using GamePal.Data.Entities;
+using GamePal.Repositories.AuthProviderRepo;
 using GamePal.Repositories.GameRepo;
+using GamePal.Repositories.UserAuthProviders;
 using GamePal.Repositories.UserGameRepo;
 using GamePal.Services.GameServices;
 using GamePal.Services.UserGameServices;
@@ -108,6 +110,8 @@ void AddServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<IUserGameService, UserGameService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IUserAuthProviderRepo, UserAuthProviderRepo>();
+    builder.Services.AddScoped<IAuthProviderRepo, AuthProviderRepo>();
 }
 
 void AddIdentityServices(WebApplicationBuilder builder)
