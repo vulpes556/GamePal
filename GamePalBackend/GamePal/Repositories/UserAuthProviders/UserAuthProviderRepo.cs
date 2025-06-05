@@ -23,7 +23,10 @@ namespace GamePal.Repositories.UserAuthProviders
 
         public async Task<IEnumerable<UserAuthProvider>> GetAllAsync()
         {
-            return await _dbContext.UserAuthProviders.ToListAsync();
+            return await _dbContext.UserAuthProviders
+                .Include(p => p.User)
+                .Include(p => p.AuthProvider)
+                .ToListAsync();
         }
 
         public async Task<User?> GetUserByProviderIdAsync(string providerUserId, string providerName)
