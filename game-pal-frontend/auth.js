@@ -67,12 +67,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const name = user.name || null;
       const image = user.image || null;
 
+      if (providerName === "credentials") {
+        return true;
+      }
+
       try {
-        const res = await fetch(`${baseUrl}/api/user/upsert`, {
+        const res = await fetch(`${baseUrl}/user/upsert`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            provider: providerName,
+            providerName: providerName,
             providerAccountId,
             email,
             name,
