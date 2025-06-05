@@ -1,6 +1,7 @@
 import ThemeToggleBtn from "../ThemeToggler/ThemeTogglerBtn";
 import { SiYoutubegaming } from "react-icons/si";
 import Link from "next/link";
+import { signOut } from "@/auth.js"
 
 export default function Navbar() {
     return (
@@ -21,6 +22,14 @@ export default function Navbar() {
                         </button>
                     </Link>
                 </div>
+                <form
+                    action={async () => {
+                        "use server"
+                        await signOut()
+                    }}
+                >
+                    <button className="primary-button" type="submit">Sign Out</button>
+                </form>
                 <ThemeToggleBtn />
             </div>
         </div>
