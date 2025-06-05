@@ -91,8 +91,16 @@ namespace GamePal.Controllers
         {
             try
             {
-                await _userService.UpsertUserAsync(extAuthReq);
-                return Ok(new { succes = true });
+                var result = await _userService.UpsertUserAsync(extAuthReq);
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    AddErrors(result);
+                    return BadRequest(ModelState);
+                }
             }
             catch (Exception e)
             {
