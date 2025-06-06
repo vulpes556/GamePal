@@ -87,7 +87,9 @@ namespace GamePal.Services.UserServices
 
             if (userByProvider != null)
             {
-                return new AuthResult(true, userEmail, userProviderUsername, "");
+                var token2 = await _tokenService.CreateToken(userByProvider);
+
+                return new AuthResult(true, userEmail, userProviderUsername, token2);
             }
 
             // 2. Try finding the user by email
@@ -138,7 +140,9 @@ namespace GamePal.Services.UserServices
                 await _userAuthProviderRepo.AddUserAuthProviderAsync(userAuthProvider);
             }
 
-            return new AuthResult(true, userEmail, userProviderUsername, "");
+            var token = await _tokenService.CreateToken(userByEmail);
+
+            return new AuthResult(true, userEmail, userProviderUsername, token);
         }
 
 

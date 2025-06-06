@@ -1,5 +1,6 @@
 ﻿using GamePal.Models.AuthContracts;
 using GamePal.Services.UserServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,13 +63,15 @@ namespace GamePal.Controllers
                         Expires = DateTime.UtcNow.AddHours(1)
                     };
 
-                    Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
+                    //Response.Cookies.Append("AuthToken", result.Token, cookieOptions);
 
+                    // temporary sample data
                     return Ok(new
                     {
                         id = "123",
                         name = "John Doe",
-                        email = "john@example.com"
+                        email = "john@example.com",
+                        token = result.Token
                     });
                 }
 
@@ -97,6 +100,7 @@ namespace GamePal.Controllers
                     return Ok(new
                     {
                         success = true,
+                        token = result.Token,
                     });
                 }
                 else
@@ -110,6 +114,17 @@ namespace GamePal.Controllers
                 _logger.LogError(e.Message);
                 return BadRequest();
             }
+        }
+
+        // for testing
+        [Authorize]
+        [HttpGet("/protected")]
+        public async Task<IActionResult> ProtectedEndpoint()
+        {
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            var token = authHeader.Substring("Bearer ".Length).Trim();
+
+            return Ok();
         }
 
 

@@ -84,6 +84,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -142,9 +143,19 @@ void AddAuthentication(WebApplicationBuilder builder)
             {
                 OnMessageReceived = context =>
                 {
-                    var token = context.Request.Cookies["AuthToken"];
-                    if (!string.IsNullOrEmpty(token))
-                        context.Token = token;
+                    // Prefer Authorization header
+                    var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+                    if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer "))
+                    {
+                        context.Token = authHeader.Substring("Bearer ".Length).Trim();
+                    }
+                    else
+                    {
+                        // Fallback to cookie
+                        var cookieToken = context.Request.Cookies["AuthToken"];
+                        if (!string.IsNullOrEmpty(cookieToken))
+                            context.Token = cookieToken;
+                    }
 
                     return Task.CompletedTask;
                 }
@@ -153,8 +164,8 @@ void AddAuthentication(WebApplicationBuilder builder)
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ClockSkew = TimeSpan.Zero,
-                ValidateIssuer = true,
-                ValidateAudience = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = builder.Configuration["ValidIssuer"],
