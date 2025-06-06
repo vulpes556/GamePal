@@ -1,4 +1,3 @@
-"use client";
 import { CgProfile } from "react-icons/cg";
 import { FaSearch } from "react-icons/fa";
 import { PiGameControllerBold } from "react-icons/pi";

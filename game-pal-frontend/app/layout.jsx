@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar/Navbar";
 import "./globals.scss";
 import { AppProvider } from "@/context/AppContext";
+import SessionWrapper from "@/components/SessionWrapper/SessionWrapper";
 
 
 
@@ -25,10 +26,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="layout">
-        <AppProvider>
-          <Navbar />
-          {children}
-        </AppProvider>
+        <SessionWrapper>
+          <AppProvider>
+            <Navbar />
+            {children}
+          </AppProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

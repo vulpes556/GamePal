@@ -17,7 +17,7 @@ export default async function Login(props) {
     <div className="login-page-main">
       <div className="login-box">
         <div className="login-form">
-          <form
+          <form 
             action={async (formData) => {
               "use server"
               const email = formData.get("email")
@@ -27,12 +27,12 @@ export default async function Login(props) {
                   redirect: true,
                   email,
                   password,
-                  callbackUrl: "/",
-                  redirectTo: "/"
+                  callbackUrl:"/",
+                  redirectTo:"/"
                 })
               } catch (error) {
                 if (error instanceof AuthError) {
-                  return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`)
+                  console.error("error during authentication!", error)
                 }
                 throw error
               }
@@ -57,7 +57,7 @@ export default async function Login(props) {
                 "use server"
                 try {
                   await signIn(provider.id, {
-                    redirectTo: props.searchParams?.callbackUrl ?? "",
+                    redirectTo: "/",
                   })
                 } catch (error) {
                   if (error instanceof AuthError) {

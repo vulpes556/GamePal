@@ -1,16 +1,17 @@
-import NextAuth from "next-auth"
-import GitHub from "next-auth/providers/github"
-import Credentials from "next-auth/providers/credentials"
-import Google from "next-auth/providers/google"
+import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
+import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 
 const baseUrl = process.env.BACKEND_URL;
+
 const providers = [
   Credentials({
     credentials: {
       email: { label: "email", type: "text" },
       password: { label: "password", type: "password" },
     },
-    async authorize(credentials, req) {
+    async authorize(credentials) {
       try {
         const res = await fetch(`${baseUrl}/user/login`, {
           method: "POST",
@@ -26,10 +27,14 @@ const providers = [
           return null;
         }
 
-        const user = await res.json();
+        const body = await res.json();
 
-        if (user && user.id) {
-          return user;
+        if (body && body.id && body.token) {
+          return {
+            id: body.id,
+            email: body.email,
+            token: body.token,
+          };
         }
 
         return null;
@@ -39,35 +44,52 @@ const providers = [
       }
     },
   }),
-  GitHub,
-  Google,
-]
+
+  GitHub({
+    clientId: process.env.GITHUB_ID,
+    clientSecret: process.env.GITHUB_SECRET,
+  }),
+
+  Google({
+    clientId: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
+  }),
+];
 
 export const providerMap = providers
   .map((provider) => {
     if (typeof provider === "function") {
-      const providerData = provider()
-      return { id: providerData.id, name: providerData.name }
+      const p = provider();
+      return { id: p.id, name: p.name };
     } else {
-      return { id: provider.id, name: provider.name }
+      return { id: provider.id, name: provider.name };
     }
   })
-  .filter((provider) => provider.id !== "credentials")
+  .filter((p) => p.id !== "credentials");
+
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
+
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.AUTH_SECRET,
+  jwt: {
+    issuer: process.env.JWTS_ISSUER,
+    audience: process.env.JWTS_AUDIENCE,
+    secret: process.env.AUTH_SECRET,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: "/login",
   },
-  callbacks: {
-    async signIn({ user, account, profile }) {
-      const providerName = account.provider;              // "github" or "google"
-      const providerAccountId = account.providerAccountId; // e.g. "1234567"
-      const email = user.email;                            // could be null from GitHub
-      const name = user.name || null;
-      const image = user.image || null;
 
-      if (providerName === "credentials") {
+  callbacks: {
+
+    async signIn({ user, account, profile }) {
+      if (account.provider === "credentials") {
         return true;
       }
 
@@ -76,30 +98,49 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            providerName: providerName,
-            providerAccountId,
-            email,
-            name,
-            image,
+            providerName: account.provider,
+            providerAccountId: account.providerAccountId,
+            email: user.email,
+            name: user.name || null,
+            image: user.image || null,
           }),
         });
 
         if (!res.ok) {
-          console.error("Upsert endpoint returned error:", await res.text());
-          return false; // Block sign-in if backend fails
-        }
-
-        const body = await res.json();
-        if (body.success) {
-          return true; // Allow NextAuth to finish sign-in
-        } else {
-          console.error("Upsert failed on backend:", body);
+          console.error("Upsert failed:", await res.text());
           return false;
         }
+        const body = await res.json();
+        if (body.token) {
+          user.token = body.token;
+          return true;
+        }
+        if (!body.success) {
+          console.error("Upsert returned success=false:", body);
+          return false;
+        }
+        return true;
       } catch (err) {
         console.error("Error calling upsert endpoint:", err);
         return false;
       }
+    },
+
+    async jwt({ token, user, account }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.accessToken = user.token;
+      }
+      return token;
+    },
+
+
+    async session({ session, token }) {
+      session.accessToken = token.accessToken;
+      session.user.id = token.id;
+      session.user.email = token.email;
+      return session;
     },
   },
 });
