@@ -35,7 +35,7 @@ namespace GamePal.Services.UserServices
             var roleExists = await _roleManager.RoleExistsAsync(role);
             if (!roleExists)
             {
-                return new AuthResult(false, request.Email, request.Username, "")
+                return new AuthResult("", false, request.Email, request.Username, "")
                 {
                     ErrorMessages = { { "RoleError", "The specified role does not exist." } }
                 };
@@ -49,7 +49,7 @@ namespace GamePal.Services.UserServices
             }
 
             await _userManager.AddToRoleAsync(user, role);
-            return new AuthResult(true, request.Email, request.Username, "");
+            return new AuthResult(user.Id, true, request.Email, request.Username, "");
         }
 
         public async Task<AuthResult> LoginAsync(AuthRequest authRequest)
@@ -71,7 +71,7 @@ namespace GamePal.Services.UserServices
 
             var accessToken = await _tokenService.CreateToken(user);
 
-            return new AuthResult(true, user.Email, user.UserName, accessToken);
+            return new AuthResult(user.Id, true, user.Email, user.UserName, accessToken);
         }
 
         public async Task<AuthResult> UpsertUserAsync(ExternalAuthRequest extAuthReq)
@@ -89,7 +89,7 @@ namespace GamePal.Services.UserServices
             {
                 var token2 = await _tokenService.CreateToken(userByProvider);
 
-                return new AuthResult(true, userEmail, userProviderUsername, token2);
+                return new AuthResult(userByProvider.Id, true, userEmail, userProviderUsername, token2);
             }
 
             // 2. Try finding the user by email
@@ -142,14 +142,14 @@ namespace GamePal.Services.UserServices
 
             var token = await _tokenService.CreateToken(userByEmail);
 
-            return new AuthResult(true, userEmail, userProviderUsername, token);
+            return new AuthResult(userByEmail.Id, true, userEmail, userProviderUsername, token);
         }
 
 
 
         private static AuthResult InvalidEmail(string email)
         {
-            var result = new AuthResult(false, email, "", "");
+            var result = new AuthResult("", false, email, "", "");
             result.ErrorMessages.Add("Bad credentials", "Invalid email/username");
             return result;
         }
@@ -157,7 +157,7 @@ namespace GamePal.Services.UserServices
 
         private static AuthResult InvalidPassword(string email, string userName)
         {
-            var result = new AuthResult(false, email, userName, "");
+            var result = new AuthResult("", false, email, userName, "");
             result.ErrorMessages.Add("Bad credentials", "Invalid password");
             return result;
         }
@@ -165,7 +165,7 @@ namespace GamePal.Services.UserServices
 
         private static AuthResult FailedRegistration(IdentityResult result, string email, string username)
         {
-            var authResult = new AuthResult(false, email, username, "");
+            var authResult = new AuthResult("", false, email, username, "");
 
             foreach (var error in result.Errors)
             {

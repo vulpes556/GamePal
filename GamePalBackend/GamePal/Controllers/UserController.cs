@@ -68,9 +68,9 @@ namespace GamePal.Controllers
                     // temporary sample data
                     return Ok(new
                     {
-                        id = "123",
-                        name = "John Doe",
-                        email = "john@example.com",
+                        id = result.UserId,
+                        name = result.UserName,
+                        email = result.Email,
                         token = result.Token
                     });
                 }
@@ -99,6 +99,9 @@ namespace GamePal.Controllers
                 {
                     return Ok(new
                     {
+                        id = result.UserId,
+                        name = result.UserName,
+                        email = result.Email,
                         success = true,
                         token = result.Token,
                     });

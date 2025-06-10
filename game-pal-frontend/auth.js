@@ -93,6 +93,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       try {
+        // const idToken = account.id_token || account.access_token;
         const res = await fetch(`${baseUrl}/user/upsert`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
