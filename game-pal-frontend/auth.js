@@ -4,6 +4,8 @@ import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
 const baseUrl = process.env.BACKEND_URL;
+const SESSION_LIFETIME = 60 * 60; // 1 hour
+const TOKEN_RENEWAL_INTERVAL = 5 * 60; // 5 minutes
 
 const providers = [
   Credentials({
@@ -73,13 +75,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   session: {
     strategy: "jwt",
+    maxAge: SESSION_LIFETIME,
+    updateAge: TOKEN_RENEWAL_INTERVAL
   },
-  secret: process.env.AUTH_SECRET,
-  jwt: {
-    issuer: process.env.JWTS_ISSUER,
-    audience: process.env.JWTS_AUDIENCE,
-    secret: process.env.AUTH_SECRET,
-  },
+
   secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
