@@ -1,15 +1,9 @@
-"use client"
+// "use client"
 import FeaturedGames from "@/components/FeaturedGames/FeaturedGames";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
-import { fetchUserGames } from "@/scripts/scripts";
-import { useEffect } from "react";
+import ProtectedButton from "@/components/ProtectedEndpointTester/ProtectedButton";
 
 export default function Home() {
-
-
-  useEffect(() => {
-    fetchUserGames();
-  }, [])
 
   return (
     <div className="main-page">
@@ -20,6 +14,7 @@ export default function Home() {
       </div>
       <FeaturedGames />
       <HowItWorks />
+      <ProtectedButton />
     </div>
   );
 }

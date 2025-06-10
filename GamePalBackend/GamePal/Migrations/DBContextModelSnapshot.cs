@@ -37,6 +37,23 @@ namespace GamePal.Migrations
                     b.ToTable("GameGameCategory");
                 });
 
+            modelBuilder.Entity("GamePal.Data.Entities.AuthProvider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthProviders");
+                });
+
             modelBuilder.Entity("GamePal.Data.Entities.Country", b =>
                 {
                     b.Property<int>("Id")
@@ -167,7 +184,7 @@ namespace GamePal.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<int>("CountryId")
+                    b.Property<int?>("CountryId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Email")
@@ -222,6 +239,33 @@ namespace GamePal.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("GamePal.Data.Entities.UserAuthProvider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthProviderId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProviderUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthProviderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserAuthProviders");
                 });
 
             modelBuilder.Entity("GamePal.Data.Entities.UserGame", b =>
@@ -420,11 +464,26 @@ namespace GamePal.Migrations
                 {
                     b.HasOne("GamePal.Data.Entities.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryId")
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("GamePal.Data.Entities.UserAuthProvider", b =>
+                {
+                    b.HasOne("GamePal.Data.Entities.AuthProvider", "AuthProvider")
+                        .WithMany()
+                        .HasForeignKey("AuthProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Country");
+                    b.HasOne("GamePal.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("AuthProvider");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GamePal.Data.Entities.UserGame", b =>

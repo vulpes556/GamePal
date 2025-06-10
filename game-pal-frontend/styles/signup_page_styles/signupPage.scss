@@ -1,0 +1,25 @@
+.signup-page-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+
+.login-box {
+    border: black solid 1px;
+    border-radius: 5px;
+    width: 20rem;
+    padding: 1rem;
+    box-shadow: 0 0 20px 1px;
+
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+
+}

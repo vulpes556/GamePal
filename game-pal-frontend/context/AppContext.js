@@ -31,7 +31,6 @@ export function AppProvider({ children }) {
         }
 
         localStorage.setItem("theme", selectedTheme);
-        console.log("selected theme", selectedTheme)
         root.classList.add(selectedTheme);
     }
 
