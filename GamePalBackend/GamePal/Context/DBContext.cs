@@ -18,9 +18,13 @@ namespace GamePal.Context
         public DbSet<GamingPreference> GamingPreferences { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Platform> Platforms { get; set; }
+
+        //join table for users and games and platforms
         public DbSet<UserGame> UserGames { get; set; }
         public DbSet<GameCategory> GameCategories { get; set; }
         public DbSet<AuthProvider> AuthProviders { get; set; }
+
+        //join table for users and auth providers
         public DbSet<UserAuthProvider> UserAuthProviders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
