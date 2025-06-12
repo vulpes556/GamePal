@@ -1,3 +1,5 @@
+const backendUrl = process.env.BACKEND_URL;
+
 export async function fetchUserGames() {
     const response = await fetch("/api/user-games", {
         method: "GET",
@@ -28,4 +30,19 @@ export async function registerUser(registrationData) {
     }
     const data = await response.json();
     return data;
+}
+
+
+export async function fetchGames(session) {
+    const res = await fetch(`${backendUrl}/games`, {
+        headers: {
+            Authorization: `Bearer ${session.accessToken}`,
+            "Content-Type": "application/json",
+        },
+
+    });
+    if (!res.ok) {
+        throw new Error(`Failed to fetch games: ${res.status}`);
+    }
+    return await res.json();
 }
