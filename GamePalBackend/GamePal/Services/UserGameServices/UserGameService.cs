@@ -12,18 +12,18 @@ namespace GamePal.Services.UserGameServices
             _userGameRepository = userGameRepository;
         }
 
-        public async Task<IEnumerable<GameDTO>> GetAllWithoutUsersAsync()
+        public async Task<IEnumerable<UserGameDTO>> GetAllWithoutUsersAsync()
         {
             var userGames = await _userGameRepository.GetAllWithoutUsersAsync();
-            return userGames.Select(ConvertGameToDTO);
+            return userGames.Select(ToGameDTO);
         }
 
-        private GameDTO ConvertGameToDTO(UserGame userGame)
+        private UserGameDTO ToGameDTO(UserGame userGame)
         {
-            return new GameDTO
+            return new UserGameDTO
             {
                 GameId = userGame.Game.Id,
-                Name = userGame.Game.Name,
+                GameName = userGame.Game.Name,
                 Platform = userGame.Platform.Name,
                 Categories = userGame.Game.Categories
                      .Select(c => c.Name)

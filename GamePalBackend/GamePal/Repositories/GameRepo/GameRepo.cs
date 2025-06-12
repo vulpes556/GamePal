@@ -14,7 +14,10 @@ namespace GamePal.Repositories.GameRepo
         }
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
-            return await _dbContext.Games.ToListAsync();
+            return await _dbContext.Games
+                .Include(g => g.Categories)
+                .Include(g=> g.Platforms)
+                .ToListAsync();
         }
     }
 }

@@ -4,7 +4,7 @@ namespace GamePal.Services.UserGameServices
 {
     public interface IUserGameService
     {
-        public Task<IEnumerable<GameDTO>> GetAllWithoutUsersAsync();
+        public Task<IEnumerable<UserGameDTO>> GetAllWithoutUsersAsync();
 
     }
 }
