@@ -1,4 +1,5 @@
 using GamePal.Context;
+using GamePal.Data.DataSeeder;
 using GamePal.Data.Entities;
 using GamePal.Repositories.AuthProviderRepo;
 using GamePal.Repositories.GameRepo;
@@ -32,47 +33,24 @@ AddAuthentication(builder);
 
 var app = builder.Build();
 
-//temporary sample user
+
+
 using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var db = scope.ServiceProvider.GetRequiredService<DBContext>();
+
+    var seeder = new Seeder(userManager, roleManager, db);
 
 
-    var roles = new[] { "Admin", "User" };
-
-    foreach (var role in roles)
+    if (db.Database.IsRelational())
     {
-        if (!await roleManager.RoleExistsAsync(role))
-        {
-            await roleManager.CreateAsync(new IdentityRole(role));
-        }
+        //db.Database.Migrate();
+
+        await seeder.SeedAsync();
     }
 
-    string email = "test@gmail.com";
-    string password = "Test1234!";
-
-    var user = await userManager.FindByEmailAsync(email);
-    if (user == null)
-    {
-        var newUser = new User
-        {
-            UserName = email,
-            Email = email,
-            EmailConfirmed = true,
-            Country = new Country
-            {
-                Name = "Germany"
-            }
-        };
-
-        var result = await userManager.CreateAsync(newUser, password);
-
-        if (!result.Succeeded)
-        {
-            throw new Exception("Failed to create sample user: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-        }
-    }
 }
 
 // Configure the HTTP request pipeline.
