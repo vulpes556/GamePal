@@ -19,7 +19,7 @@ export default async function AddGame({ searchParams }) {
         <div className="add-game-main">
             <div className="game-cards-paginated">
                 {games.length > 0 ? (
-                    games.map((g) => <GameCard key={g.gameId} game={g} />)
+                    games.map((g) => { console.log(g); return <GameCard key={g.gameId} game={g} /> })
                 ) : (
                     <div>No games found or failed to load games.</div>
                 )}

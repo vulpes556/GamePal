@@ -1,9 +1,17 @@
     .game-card-main {
-
+        display: flex;
+        flex-direction: column;
         border: 1px black solid;
         transition: transform 0.3s ease;
         object-fit: cover;
         border-radius: 5px;
+        max-width: 10rem;
+        align-items: center;
+
+        h3 {
+            margin: 1rem;
+            font-size: clamp(0.75rem, 1.5vw, 1rem);
+        }
 
         &:hover {
             transform: scale(1.1);
