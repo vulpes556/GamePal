@@ -1,0 +1,21 @@
+    .game-card-main {
+
+        border: 1px black solid;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+        border-radius: 5px;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+
+        .img-container {
+            width: 10rem;
+            height: 10rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+    }

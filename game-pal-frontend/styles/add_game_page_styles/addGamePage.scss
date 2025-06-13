@@ -1,0 +1,14 @@
+    .game-cards-paginated {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        text-align: center;
+        margin: 1rem;
+        flex-wrap: wrap;
+
+
+
+        @include respond(tablet-portrait) {
+            flex-direction: column;
+        }
+    }
