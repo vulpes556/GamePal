@@ -101,6 +101,7 @@ Follow these instructions to get a local copy up and running on your machine.
    ```bash
    git clone https://github.com/vulpes556/GamePal.git
 
+---
 ### Environment Configuration
 
 After cloning the repository, configure the environment variables for both the **backend** and **frontend**.
@@ -155,11 +156,15 @@ Example:
    NEXTAUTH_URL=http://localhost:yourFrontendPort
 ```
 
+---
+
 ### Database Setup
 
 The database is currently **seeded automatically** when the backend server starts — no manual setup is required.
 
 > ⚠️ **Note:** This behavior may change in the future. Be sure to check this section for updates if issues arise.
+
+---
 
 ###  Running the Application
 
@@ -191,5 +196,5 @@ The database is currently **seeded automatically** when the backend server start
    npm run dev
    ```
 
-
+---
    To be continued....
