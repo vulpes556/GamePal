@@ -1,6 +1,6 @@
 # GamePal
 
-GamePal is a community-driven web application designed to help gamers find like-minded teammates based on shared interests, playstyles, and schedules. Whether you prefer competitive matches, casual co-op sessions, or just want to chat about your favorite titles, GamePal makes it easy to discover players who match your gaming profile.
+GamePal is a community-driven (well, I hope one day... :) ) web application designed to help gamers find like-minded teammates based on shared interests, playstyles, and schedules. Whether you prefer competitive matches, casual co-op sessions, or just want to chat about your favorite titles, GamePal makes it easy to discover players who match your gaming profile.
 
 ---
 
@@ -14,8 +14,8 @@ GamePal is a community-driven web application designed to help gamers find like-
    - [Environment Configuration](#environment-configuration)  
    - [Database Setup](#database-setup)  
 4. [Running the Application](#running-the-application)  
-   - [Backend (ASP.NET Core)](#backend-aspnet-core)  
-   - [Frontend (Next.js)](#frontend-nextjs)  
+   - [Backend](#backend)  
+   - [Frontend](#frontend)  
 5. [Authentication & Authorization](#authentication--authorization)  
 6. [Usage](#usage)  
 7. [Project Structure](#project-structure)  
@@ -101,4 +101,95 @@ Follow these instructions to get a local copy up and running on your machine.
    ```bash
    git clone https://github.com/vulpes556/GamePal.git
 
-(Will be continued...)
+### Environment Configuration
+
+After cloning the repository, configure the environment variables for both the **backend** and **frontend**.
+
+####  Backend
+
+In the backend project, you'll find a sample configuration in `appsettings.json`. Use it as a reference to set your actual environment variables.
+
+Example:
+```json
+{
+  "DbConnectionString": "Server=localhost;Port=29777;User Id=admin;Password=123456;Database=GamePal;",
+  "IssuerSigningKey": "!SomethingSecret!!SomethingSecret!",
+  "ValidIssuer": "apiWithAuthBackend",
+  "ValidAudience": "apiWithAuthBackend"
+}
+```
+#### Frontend
+
+##### Auth.js Secret
+ Required for session encryption. Generate with: `npx auth`
+ Learn more: https://cli.authjs.dev
+ ```env
+ AUTH_SECRET=
+```
+
+#####  JWT Configuration
+##### These must match the backend's `ValidIssuer` and `ValidAudience` settings
+```env
+   JWTS_ISSUER=apiWithAuthBackend
+   JWTS_AUDIENCE=apiWithAuthBackend
+```
+
+#####  GitHub OAuth
+   Register an OAuth App at https://github.com/settings/developers
+   ```env
+   AUTH_GITHUB_ID=yourGithubClientId
+   AUTH_GITHUB_SECRET=yourGithubClientSecret
+```
+
+#####  Google OAuth
+   Set up OAuth credentials at https://console.cloud.google.com/apis/credentials
+   ```env
+   AUTH_GOOGLE_ID=yourGoogleClientId
+   AUTH_GOOGLE_SECRET=yourGoogleClientSecret
+```
+
+#####  API and Frontend URLs
+   These should point to your backend and frontend server URLs
+   ```env
+   BACKEND_URL=http://localhost:yourBackendPort
+   NEXTAUTH_URL=http://localhost:yourFrontendPort
+```
+
+### Database Setup
+
+The database is currently **seeded automatically** when the backend server starts — no manual setup is required.
+
+> ⚠️ **Note:** This behavior may change in the future. Be sure to check this section for updates if issues arise.
+
+###  Running the Application
+
+#### Backend
+
+1. Navigate to the backend project directory:
+   ```bash
+   cd .\GamePalBackend\
+   ```
+2. Restore dependecies:
+   ```bash
+   dotnet restore
+   ```
+3. Run the backend server:
+   ```bash
+   dotnet run
+   ```
+#### Frontend
+1. Navigate to the frontend project directory:
+   ```bash
+   cd .\game-pal-frontend\
+   ```
+2. Install dependencies:
+   ```bash
+   npm i
+   ```
+3. Start the frontend server:
+   ```bash
+   npm run dev
+   ```
+
+
+   To be continued....
