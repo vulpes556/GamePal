@@ -5,6 +5,7 @@ import Link from "next/link";
 import GameCard from "@/components/GameCard/GameCard";
 import Modal from "@/components/Modal/Modal";
 import Image from "next/image";
+import { addGameToUserLibrary } from "@/scripts/scripts";
 
 export default function AddGameClient({ initialGames, currentPage }) {
   const [games] = useState(initialGames);
@@ -20,6 +21,14 @@ export default function AddGameClient({ initialGames, currentPage }) {
   function closeModal() {
     setIsDropdownOpen(false);
     setSelectedGame(null);
+  }
+
+  async function handlePlatformSelect() {
+    try {
+      await addGameToUserLibrary()
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -50,14 +59,10 @@ export default function AddGameClient({ initialGames, currentPage }) {
               <Image fill alt="Picture of the game" src={selectedGame?.pictureUrl || "/gameImage.png"} />
             </div>
             <h2>{selectedGame.name}</h2>
-            <p>Categories: [{selectedGame.categories.join(", ")}]</p>
+            <p>Categories: [{selectedGame.categories.map(c => c.name).join(", ")}]</p>
             <div className="dropdown-wrapper">
               <button onClick={() => {
-                setIsDropdownOpen(prev => {
-                  const newState = !prev;
-                  console.log("Dropdown open:", newState);
-                  return newState;
-                });
+                setIsDropdownOpen(prev => !prev);
               }} className="primary-button">
                 Add game
               </button>
@@ -67,11 +72,11 @@ export default function AddGameClient({ initialGames, currentPage }) {
                   {/* SHOULD BE PLATFORMS, BUT THEY'RE NOT IN THE DB YET! */}
                   {selectedGame.categories.map((platform) => (
                     <li
-                      key={platform}
-                      onClick={() => handlePlatformSelect(platform)}
+                      key={platform.id}
+                      onClick={() => handlePlatformSelect(selectedGame, platform)}
                       className="dropdown-item"
                     >
-                      {platform}
+                      {platform.name}
                     </li>
                   ))}
                 </ul>
