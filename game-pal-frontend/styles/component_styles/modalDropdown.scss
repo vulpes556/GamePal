@@ -1,0 +1,33 @@
+.dropdown-wrapper {
+    position: relative;
+}
+
+.dropdown {
+    background: rgb(187, 30, 30);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    list-style: none;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transform-origin: top center;
+    animation: slideDown 200ms ease-out forwards;
+}
+
+.dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #0861e6;
+    }
+}
+
+@keyframes slideDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -9,6 +9,7 @@ import Image from "next/image";
 export default function AddGameClient({ initialGames, currentPage }) {
   const [games] = useState(initialGames);
   const [selectedGame, setSelectedGame] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   function openModal(game) {
     setSelectedGame(game);
@@ -17,6 +18,7 @@ export default function AddGameClient({ initialGames, currentPage }) {
   console.log("selected game:", selectedGame)
 
   function closeModal() {
+    setIsDropdownOpen(false);
     setSelectedGame(null);
   }
 
@@ -48,7 +50,34 @@ export default function AddGameClient({ initialGames, currentPage }) {
               <Image fill alt="Picture of the game" src={selectedGame?.pictureUrl || "/gameImage.png"} />
             </div>
             <h2>{selectedGame.name}</h2>
-            <p>{selectedGame.categories.join(", ")}</p>
+            <p>Categories: [{selectedGame.categories.join(", ")}]</p>
+            <div className="dropdown-wrapper">
+              <button onClick={() => {
+                setIsDropdownOpen(prev => {
+                  const newState = !prev;
+                  console.log("Dropdown open:", newState);
+                  return newState;
+                });
+              }} className="primary-button">
+                Add game
+              </button>
+
+              {isDropdownOpen && (
+                <ul className="dropdown">
+                  {/* SHOULD BE PLATFORMS, BUT THEY'RE NOT IN THE DB YET! */}
+                  {selectedGame.categories.map((platform) => (
+                    <li
+                      key={platform}
+                      onClick={() => handlePlatformSelect(platform)}
+                      className="dropdown-item"
+                    >
+                      {platform}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
           </>
         )}
       </Modal>
