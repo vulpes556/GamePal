@@ -1,4 +1,5 @@
 ﻿using GamePal.Data.Entities;
+using GamePal.DTOs;
 using GamePal.Models.GameModels;
 using GamePal.Repositories.GameRepo;
 
@@ -27,8 +28,18 @@ namespace GamePal.Services.GameServices
                 GameId = game.Id,
                 Name = game.Name,
                 PictureUrl = game.ImageUrl,
-                Categories = game.Categories.Select(g => g.Name).ToList(),
-                Platforms = game.Platforms.Select(g => g.Name).ToList(),
+                Categories = game.Categories.Select(g => new GameCategoryDTO()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                }
+                ).ToList(),
+                Platforms = game.Platforms.Select(g => new PlatformDTO()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                })
+                .ToList(),
             };
         }
 

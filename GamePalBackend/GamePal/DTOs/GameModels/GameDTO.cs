@@ -1,4 +1,4 @@
-﻿using GamePal.Data.DataEnums;
+﻿using GamePal.DTOs;
 
 namespace GamePal.Models.GameModels
 {
@@ -8,7 +8,7 @@ namespace GamePal.Models.GameModels
         public int GameId { get; set; }
         public string Name { get; set; }
         public string PictureUrl { get; set; }
-        public ICollection<string> Platforms { get; set; }
-        public ICollection<string> Categories { get; set; }
+        public ICollection<PlatformDTO> Platforms { get; set; }
+        public ICollection<GameCategoryDTO> Categories { get; set; }
     }
 }
