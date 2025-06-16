@@ -46,3 +46,17 @@ export async function fetchGames(session) {
     }
     return await res.json();
 }
+
+export async function addGameToUserLibrary(addGameToUserRequest) {
+    const res = await fetch(`${backendUrl}/api/user/add-game`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(addGameToUserRequest)
+    })
+    if (!res.ok) {
+        throw new Error(`Failed to add game to user's library: ${res.status}`);
+    }
+    return await res.json();
+}
