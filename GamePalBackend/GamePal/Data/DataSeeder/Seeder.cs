@@ -167,7 +167,9 @@ namespace GamePal.Data.DataSeeder
             if (!await _dbContext.Games.AnyAsync())
             {
                 var allCategories = await _dbContext.GameCategories.ToListAsync();
-                var byName = allCategories.ToDictionary(c => c.Name, StringComparer.OrdinalIgnoreCase);
+                var catByName = allCategories.ToDictionary(c => c.Name, StringComparer.OrdinalIgnoreCase);
+                var allPlatforms = await _dbContext.Platforms.ToListAsync();
+                var platformByName = allPlatforms.ToDictionary(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
 
                 var games = new[]
@@ -178,8 +180,13 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                         byName["Battle Royale"],
+                         catByName["Battle Royale"],
                      },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["PS 5"]
+                    }
                 },
                 new Game
                 {
@@ -187,9 +194,14 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Extraction Shooter"],
-                       byName["FPS"]
-                     }
+                       catByName["Extraction Shooter"],
+                       catByName["FPS"]
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["PS 5"]
+                    }
                 },
                 new Game
                 {
@@ -197,8 +209,13 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Platformer"],
-                     }
+                       catByName["Platformer"],
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["PS 5"]
+                    }
 
                 },
                 new Game
@@ -207,9 +224,14 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Adventure"],
-                       byName["Survival"],
-                     }
+                       catByName["Adventure"],
+                       catByName["Survival"],
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["PS 5"]
+                    }
 
                 },
                 new Game
@@ -218,8 +240,13 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Sandbox"],
-                     }
+                       catByName["Sandbox"],
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["Xbox Series X"]
+                    }
                 },
                 new Game
                 {
@@ -227,8 +254,12 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Sandbox"],
-                     }
+                       catByName["Sandbox"],
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PS 5"]
+                    }
                 },
                 new Game
                 {
@@ -236,8 +267,13 @@ namespace GamePal.Data.DataSeeder
                     ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
                     Categories = new List<GameCategory>
                      {
-                       byName["Strategy"],
-                     }
+                       catByName["Strategy"],
+                     },
+                    Platforms = new List<Platform>
+                    {
+                        platformByName["PC"],
+                        platformByName["PS 4"]
+                    }
 
                 }
             };
