@@ -1,4 +1,5 @@
-﻿using GamePal.Models.GameModels;
+﻿using GamePal.DTOs.Requests;
+using GamePal.Models.GameModels;
 
 namespace GamePal.Services.UserGameServices
 {

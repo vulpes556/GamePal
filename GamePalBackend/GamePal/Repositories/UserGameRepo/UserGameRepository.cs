@@ -12,6 +12,12 @@ namespace GamePal.Repositories.UserGameRepo
         {
             _dbContext = dbContext;
         }
+
+        public Task AddGameToUserLibraryAsnyc()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<UserGame>> GetAllWithoutUsersAsync()
         {
             return await _dbContext.UserGames

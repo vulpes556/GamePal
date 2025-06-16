@@ -5,6 +5,7 @@ namespace GamePal.Repositories.GameRepo
     public interface IGameRepo
     {
         public Task<IEnumerable<Game>> GetAllAsync();
+        public Task<Game> FindByIdAsync(int id);
 
     }
 

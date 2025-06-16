@@ -6,6 +6,7 @@ namespace GamePal.Repositories.UserGameRepo
     public interface IUserGameRepository
     {
         public Task<IEnumerable<UserGame>> GetAllWithoutUsersAsync();
+        public Task AddGameToUserLibraryAsnyc();
 
     }
 }

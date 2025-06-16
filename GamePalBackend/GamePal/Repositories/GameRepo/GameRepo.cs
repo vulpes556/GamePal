@@ -12,6 +12,12 @@ namespace GamePal.Repositories.GameRepo
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Game> FindByIdAsync(int id)
+        {
+            return await _dbContext.Games.FirstOrDefaultAsync(g => g.Id == id);
+        }
+
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
             return await _dbContext.Games
