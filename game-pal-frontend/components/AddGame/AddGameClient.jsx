@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import GameCard from "@/components/GameCard/GameCard";
 import Modal from "@/components/Modal/Modal";
 import Image from "next/image";
 import { addGameToUserLibrary } from "@/scripts/scripts";
+import { useSession } from 'next-auth/react';
 
 export default function AddGameClient({ initialGames, currentPage }) {
   const [games] = useState(initialGames);
   const [selectedGame, setSelectedGame] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+useEffect(()=>{
+  console.log("session", session)
+},[])
+
 
   function openModal(game) {
     setSelectedGame(game);
@@ -23,9 +30,9 @@ export default function AddGameClient({ initialGames, currentPage }) {
     setSelectedGame(null);
   }
 
-  async function handlePlatformSelect() {
+  async function handlePlatformSelect(gameId, platformId) {
     try {
-      await addGameToUserLibrary()
+      await addGameToUserLibrary({ gameId, platformId })
     } catch (e) {
       console.log(e);
     }
@@ -69,11 +76,10 @@ export default function AddGameClient({ initialGames, currentPage }) {
 
               {isDropdownOpen && (
                 <ul className="dropdown">
-                  {/* SHOULD BE PLATFORMS, BUT THEY'RE NOT IN THE DB YET! */}
-                  {selectedGame.categories.map((platform) => (
+                  {selectedGame.platforms.map((platform) => (
                     <li
                       key={platform.id}
-                      onClick={() => handlePlatformSelect(selectedGame, platform)}
+                      onClick={() => handlePlatformSelect(selectedGame.gameId, platform.id)}
                       className="dropdown-item"
                     >
                       {platform.name}

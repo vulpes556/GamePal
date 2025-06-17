@@ -5,7 +5,7 @@ export async function fetchUserGames() {
         method: "GET",
         headers: {},
     });
-
+    
     if (!response.ok) {
         throw new Error("Something went wrong");
     }
@@ -22,7 +22,7 @@ export async function registerUser(registrationData) {
         },
         body: JSON.stringify(registrationData)
     });
-
+    
     if (!response.ok) {
         const errorData = await response.json();
         console.error("Registration failed:", errorData);
@@ -39,7 +39,7 @@ export async function fetchGames(session) {
             Authorization: `Bearer ${session.accessToken}`,
             "Content-Type": "application/json",
         },
-
+        
     });
     if (!res.ok) {
         throw new Error(`Failed to fetch games: ${res.status}`);
@@ -48,7 +48,7 @@ export async function fetchGames(session) {
 }
 
 export async function addGameToUserLibrary(addGameToUserRequest) {
-    const res = await fetch(`${backendUrl}/api/user/add-game`, {
+    const res = await fetch(`/api/user/add-game`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
