@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const BACKEND_URL     = process.env.BACKEND_URL;
-const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+const NEXTAUTH_SECRET = process.env.AUTH_SECRET;
 
 export async function POST(request) {
   const token = await getToken({ req: request, secret: NEXTAUTH_SECRET });
