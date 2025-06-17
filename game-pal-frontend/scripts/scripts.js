@@ -1,7 +1,7 @@
 const backendUrl = process.env.BACKEND_URL;
 
 export async function fetchUserGames() {
-    const response = await fetch("/api/user-games", {
+    const response = await fetch("/backend/user-games", {
         method: "GET",
         headers: {},
     });
@@ -15,7 +15,7 @@ export async function fetchUserGames() {
 
 
 export async function registerUser(registrationData) {
-    const response = await fetch("/api/user/register", {
+    const response = await fetch("/backend/user/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -48,15 +48,12 @@ export async function fetchGames(session) {
 }
 
 export async function addGameToUserLibrary(addGameToUserRequest) {
-    const res = await fetch(`/api/user/add-game`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(addGameToUserRequest)
-    })
-    if (!res.ok) {
-        throw new Error(`Failed to add game to user's library: ${res.status}`);
-    }
-    return await res.json();
+  const res = await fetch("/api/user/add-game", {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(addGameToUserRequest),
+  });
+  if (!res.ok) throw new Error(`Add game failed: ${res.status}`);
+  return res.json();
 }
