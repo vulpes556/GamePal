@@ -275,7 +275,143 @@ namespace GamePal.Data.DataSeeder
                         platformByName["PS 4"]
                     }
 
+                },
+                new Game
+            {
+                Name = "Minecraft",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Sandbox"],
+                    catByName["Survival"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"]
                 }
+            },
+            new Game
+            {
+                Name = "Call of Duty: Modern Warfare II",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["FPS"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"],
+                    platformByName["Xbox Series X"]
+                }
+            },
+            new Game
+            {
+                Name = "Apex Legends",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Battle Royale"],
+                    catByName["FPS"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"]
+                }
+            },
+            new Game
+            {
+                Name = "Rust",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Survival"],
+                    catByName["FPS"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"]
+                }
+            },
+            new Game
+            {
+                Name = "The Forest",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Survival"],
+                    catByName["Adventure"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 4"]
+                }
+            },
+            new Game
+            {
+                Name = "Fortnite",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Battle Royale"],
+                    catByName["Sandbox"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"],
+                    platformByName["Xbox Series X"]
+                }
+            },
+            new Game
+            {
+                Name = "Valheim",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Survival"],
+                    catByName["Adventure"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"]
+                }
+            },
+            new Game
+            {
+                Name = "ARK: Survival Evolved",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["Survival"],
+                    catByName["Adventure"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 4"]
+                }
+            },
+            new Game
+            {
+                Name = "Deep Rock Galactic",
+                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
+                Categories = new List<GameCategory>
+                {
+                    catByName["FPS"],
+                    catByName["Adventure"]
+                },
+                Platforms = new List<Platform>
+                {
+                    platformByName["PC"],
+                    platformByName["PS 5"]
+                }
+            }
+
             };
 
                 _dbContext.Games.AddRange(games);
