@@ -15,14 +15,17 @@ namespace GamePal.Repositories.GameRepo
 
         public async Task<Game> FindByIdAsync(int id)
         {
-            return await _dbContext.Games.FirstOrDefaultAsync(g => g.Id == id);
+            return await _dbContext.Games
+                .Include(g => g.Platforms)
+                .Include(g => g.Categories)
+                .FirstOrDefaultAsync(g => g.Id == id);
         }
 
         public async Task<IEnumerable<Game>> GetAllAsync()
         {
             return await _dbContext.Games
                 .Include(g => g.Categories)
-                .Include(g=> g.Platforms)
+                .Include(g => g.Platforms)
                 .ToListAsync();
         }
     }

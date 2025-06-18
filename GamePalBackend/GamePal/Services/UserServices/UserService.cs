@@ -7,6 +7,7 @@ using GamePal.Repositories.PlatformRepo;
 using GamePal.Repositories.UserAuthProviders;
 using LadleMeThis.Services.TokenService;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 
 namespace GamePal.Services.UserServices
@@ -157,12 +158,15 @@ namespace GamePal.Services.UserServices
             var gameId = addGameRequest.GameId;
             var platformId = addGameRequest.PlatformId;
 
-
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.Users
+                .Include(u => u.Games)
+                .ThenInclude(ug => ug.Platform)
+                .ThenInclude(ug => ug.Games)
+                .FirstOrDefaultAsync(u => u.Id == userId);
             var game = await _gameRepo.FindByIdAsync(gameId);
             var platform = await _platformRepo.FindByIdAsync(platformId);
 
-            if (user.Games.Any(g => g.Id == game.Id && g.Platform.Id == platform.Id))
+            if (user.Games.Any(g => g.Game.Id == game.Id && g.Platform.Id == platform.Id))
             {
                 throw new InvalidEnumArgumentException("Game is already in the the user's library!");
             }
