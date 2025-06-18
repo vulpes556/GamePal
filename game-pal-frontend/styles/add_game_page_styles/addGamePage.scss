@@ -1,14 +1,41 @@
-    .game-cards-paginated {
+    .add-game-main {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+
+        .pagination-controls {
+            width: 10rem;
+
+            a {
+                margin: 1rem;
+            }
+        }
+
+    }
+
+    .game-cards-paginated {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
-        text-align: center;
         margin: 1rem;
-        flex-wrap: wrap;
+        text-align: center;
+        border: solid red 1px;
+        justify-items: center;
+        width: 75%;
 
 
+        @include respond(tablet-landscape) {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
         @include respond(tablet-portrait) {
-            flex-direction: column;
+            grid-template-columns: repeat(2, 1fr);
         }
+
+        @include respond(phone) {
+            grid-template-columns: 1fr;
+        }
+
     }

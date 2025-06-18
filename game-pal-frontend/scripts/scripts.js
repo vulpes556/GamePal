@@ -32,7 +32,7 @@ export async function registerUser(registrationData) {
     return data;
 }
 
-
+// dont forget to refactor: dont use session!
 export async function fetchGames(session) {
     const res = await fetch(`${backendUrl}/games`, {
         headers: {

@@ -6,17 +6,12 @@ import GameCard from "@/components/GameCard/GameCard";
 import Modal from "@/components/Modal/Modal";
 import Image from "next/image";
 import { addGameToUserLibrary } from "@/scripts/scripts";
-import { useSession } from 'next-auth/react';
 
 export default function AddGameClient({ initialGames, currentPage }) {
   const [games] = useState(initialGames);
   const [selectedGame, setSelectedGame] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { data: session, status } = useSession();
 
-useEffect(()=>{
-  console.log("session", session)
-},[])
 
 
   function openModal(game) {
@@ -54,9 +49,9 @@ useEffect(()=>{
 
       <div className="pagination-controls">
         {currentPage > 1 && (
-          <Link href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
+          <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
         )}
-        <Link href={`/add-game?page=${currentPage + 1}`}>Next</Link>
+        <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
       </div>
 
       <Modal isOpen={!!selectedGame} onClose={closeModal}>
