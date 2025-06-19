@@ -55,12 +55,11 @@ export default function AddGameClient({ initialGames, currentPage }) {
           <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
         )}
         {
-          currentPage * 5 <= initialGames.totalCount && (
+          currentPage * 8 < initialGames.totalCount && (
             <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
           )
         }
       </div>
-
       <Modal isOpen={!!selectedGame} onClose={closeModal}>
         {selectedGame && (
           <>

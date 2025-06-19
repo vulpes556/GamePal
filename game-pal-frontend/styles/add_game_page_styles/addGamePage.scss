@@ -1,33 +1,33 @@
     .add-game-main {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        height: fit-content;
+        padding-top: 10rem; //navbar height (make it imported in the future)
+
 
 
         .pagination-controls {
-            width: 10rem;
-
-            a {
-                margin: 1rem;
-            }
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
         }
 
     }
 
     .game-cards-paginated {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
         margin: 1rem;
         text-align: center;
-        border: solid red 1px;
         justify-items: center;
         width: 75%;
+        height: fit-content;
 
 
         @include respond(tablet-landscape) {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
         }
 
         @include respond(tablet-portrait) {

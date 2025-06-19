@@ -9,7 +9,7 @@ export default function Modal({isOpen ,onClose, children }) {
     return (
         <div className="modal-backdrop" onClick={onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <button className="primary-button" onClick={onClose}>✕</button>
+                <button className="primary-button modal-close" onClick={onClose}>✕</button>
                 {children}
             </div>
         </div>

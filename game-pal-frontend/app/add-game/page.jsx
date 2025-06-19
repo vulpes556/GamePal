@@ -3,7 +3,7 @@ import AddGameClient from "@/components/AddGame/AddGameClient.jsx";
 
 export default async function AddGameServer({ searchParams }) {
   const page = parseInt(searchParams?.page || "1");
-  const pageSize = 5;
+  const pageSize = 8;
 
   let games = [];
   try {

@@ -1,8 +1,5 @@
-// "use client"
 import FeaturedGames from "@/components/FeaturedGames/FeaturedGames";
 import HowItWorks from "@/components/HowItWorks/HowItWorks";
-import ProtectedButton from "@/components/ProtectedEndpointTester/ProtectedButton";
-
 export default function Home() {
 
   return (
@@ -14,7 +11,6 @@ export default function Home() {
       </div>
       <FeaturedGames />
       <HowItWorks />
-      <ProtectedButton />
     </div>
   );
 }
