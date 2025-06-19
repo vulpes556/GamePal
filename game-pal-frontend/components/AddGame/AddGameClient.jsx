@@ -8,11 +8,14 @@ import Image from "next/image";
 import { addGameToUserLibrary } from "@/scripts/scripts";
 
 export default function AddGameClient({ initialGames, currentPage }) {
-  const [games] = useState(initialGames);
+  const [games, setGames] = useState(initialGames.items);
   const [selectedGame, setSelectedGame] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
 
+  useEffect(() => {
+    setGames(initialGames.items);
+  }, [initialGames]);
 
   function openModal(game) {
     setSelectedGame(game);
@@ -36,8 +39,8 @@ export default function AddGameClient({ initialGames, currentPage }) {
   return (
     <div className="add-game-main">
       <div className="game-cards-paginated">
-        {games.length > 0 ? (
-          games.map((g) => (
+        {games?.length > 0 ? (
+          games?.map((g) => (
             <div key={g.gameId} onClick={() => openModal(g)}>
               <GameCard game={g} />
             </div>
@@ -51,7 +54,11 @@ export default function AddGameClient({ initialGames, currentPage }) {
         {currentPage > 1 && (
           <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
         )}
-        <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
+        {
+          currentPage * 5 <= initialGames.totalCount && (
+            <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
+          )
+        }
       </div>
 
       <Modal isOpen={!!selectedGame} onClose={closeModal}>

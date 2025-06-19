@@ -12,7 +12,7 @@ export default function ProtectedButton() {
     }
 
     try {
-      const res = await fetch("/api/protected", {
+      const res = await fetch("/backend/protected", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${session.accessToken}`,

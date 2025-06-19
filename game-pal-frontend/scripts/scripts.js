@@ -5,7 +5,7 @@ export async function fetchUserGames() {
         method: "GET",
         headers: {},
     });
-    
+
     if (!response.ok) {
         throw new Error("Something went wrong");
     }
@@ -22,7 +22,7 @@ export async function registerUser(registrationData) {
         },
         body: JSON.stringify(registrationData)
     });
-    
+
     if (!response.ok) {
         const errorData = await response.json();
         console.error("Registration failed:", errorData);
@@ -32,28 +32,33 @@ export async function registerUser(registrationData) {
     return data;
 }
 
-// dont forget to refactor: dont use session!
-export async function fetchGames(session) {
-    const res = await fetch(`${backendUrl}/games`, {
+export async function fetchGames(page = 1, pageSize = 10) {
+    const url = new URL(`${backendUrl}/games`);
+    url.searchParams.set("page", page);
+    url.searchParams.set("pageSize", pageSize);
+
+    const res = await fetch(url.toString(), {
+        method: "GET",
         headers: {
-            Authorization: `Bearer ${session.accessToken}`,
             "Content-Type": "application/json",
         },
-        
     });
+
     if (!res.ok) {
         throw new Error(`Failed to fetch games: ${res.status}`);
     }
+
     return await res.json();
 }
 
+
 export async function addGameToUserLibrary(addGameToUserRequest) {
-  const res = await fetch("/api/user/add-game", {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(addGameToUserRequest),
-  });
-  if (!res.ok) throw new Error(`Add game failed: ${res.status}`);
-  return res.json();
+    const res = await fetch("/api/user/add-game", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(addGameToUserRequest),
+    });
+    if (!res.ok) throw new Error(`Add game failed: ${res.status}`);
+    return res.json();
 }
