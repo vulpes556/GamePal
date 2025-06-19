@@ -180,6 +180,11 @@ button {
     background: $modal-background-light;
 }
 
+.navbar {
+    background: $background-light;
+    transition: background-color 0.3s ease;
+}
+
 
 // DARK MODE SETTINGS
 
@@ -215,6 +220,10 @@ html.dark-mode {
 
     .modal-content {
         background: #8b7e69c4;
+    }
+
+    .navbar {
+        background: $background;
     }
 
 }
