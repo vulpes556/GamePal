@@ -17,12 +17,12 @@ namespace GamePal.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetGamesAsync( [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
-                var gameDTOs = await _gameService.GetAllAsync();
-                return Ok(gameDTOs);
+                var pagedResult = await _gameService.GetGamesAsync(page, pageSize);
+                return Ok(pagedResult);
             }
             catch (Exception ex)
             {

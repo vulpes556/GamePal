@@ -1,5 +1,7 @@
 ﻿using GamePal.Context;
 using GamePal.Data.Entities;
+using GamePal.DTOs.GameModels;
+using GamePal.Models.GameModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace GamePal.Repositories.GameRepo
@@ -28,5 +30,31 @@ namespace GamePal.Repositories.GameRepo
                 .Include(g => g.Platforms)
                 .ToListAsync();
         }
+
+        public async Task<PagedResult<Game>> GetPagedAsync(int page, int pageSize)
+        {
+            if (page < 1) throw new ArgumentOutOfRangeException(nameof(page));
+            if (pageSize < 1) throw new ArgumentOutOfRangeException(nameof(pageSize));
+
+            var query = _dbContext.Games
+                                  .Include(g => g.Categories)
+                                  .Include(g => g.Platforms)
+                                  .AsQueryable();
+
+            var total = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(g => g.Name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResult<Game>
+            {
+                Items = items,
+                TotalCount = total
+            };
+        }
+
     }
 }

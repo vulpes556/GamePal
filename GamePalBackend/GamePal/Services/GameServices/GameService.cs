@@ -1,5 +1,6 @@
 ﻿using GamePal.Data.Entities;
 using GamePal.DTOs;
+using GamePal.DTOs.GameModels;
 using GamePal.Models.GameModels;
 using GamePal.Repositories.GameRepo;
 
@@ -19,6 +20,17 @@ namespace GamePal.Services.GameServices
         {
             var games = await _gameRepository.GetAllAsync();
             return games.Select(ToDTO);
+        }
+
+        public async Task<PagedResult<GameDTO>> GetGamesAsync(int page, int pageSize)
+        {
+          var result = await _gameRepository.GetPagedAsync(page, pageSize);
+
+            return new PagedResult<GameDTO>()
+            {
+                Items = result.Items.Select(ToDTO),
+                TotalCount = result.TotalCount,
+            };
         }
 
         private GameDTO ToDTO(Game game)
