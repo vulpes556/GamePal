@@ -34,7 +34,6 @@ export async function POST(request) {
 
     return NextResponse.json(parsed, { status: apiRes.status });
   } catch (error) {
-    // Network error or similar
     return NextResponse.json(
       { error: "Failed to connect to backend." },
       { status: 502 }
