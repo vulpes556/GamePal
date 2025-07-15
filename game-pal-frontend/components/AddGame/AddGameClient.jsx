@@ -6,6 +6,7 @@ import GameCard from "@/components/GameCard/GameCard";
 import Modal from "@/components/Modal/Modal";
 import Image from "next/image";
 import { addGameToUserLibrary } from "@/scripts/scripts";
+import Filters from "../Filters/Filters";
 
 export default function AddGameClient({ initialGames, currentPage }) {
   const [games, setGames] = useState(initialGames.items);
@@ -38,27 +39,30 @@ export default function AddGameClient({ initialGames, currentPage }) {
 
   return (
     <div className="add-game-main">
-      <div className="game-cards-paginated">
-        {games?.length > 0 ? (
-          games?.map((g) => (
-            <div key={g.gameId} onClick={() => openModal(g)}>
-              <GameCard game={g} />
-            </div>
-          ))
-        ) : (
-          <div>No games found or failed to load games.</div>
-        )}
-      </div>
+      <Filters />
+      <div>
+        <div className="game-cards-paginated">
+          {games?.length > 0 ? (
+            games?.map((g) => (
+              <div key={g.gameId} onClick={() => openModal(g)}>
+                <GameCard game={g} />
+              </div>
+            ))
+          ) : (
+            <div>No games found or failed to load games.</div>
+          )}
+        </div>
 
-      <div className="pagination-controls">
-        {currentPage > 1 && (
-          <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
-        )}
-        {
-          currentPage * 8 < initialGames.totalCount && (
-            <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
-          )
-        }
+        <div className="pagination-controls">
+          {currentPage > 1 && (
+            <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
+          )}
+          {
+            currentPage * 8 < initialGames.totalCount && (
+              <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
+            )
+          }
+        </div>
       </div>
       <Modal isOpen={!!selectedGame} onClose={closeModal}>
         {selectedGame && (

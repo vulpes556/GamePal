@@ -1,11 +1,9 @@
     .add-game-main {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        align-items: flex-start;
         height: fit-content;
         padding-top: 10rem; //navbar height (make it imported in the future)
-
-
 
         .pagination-controls {
             display: flex;
@@ -16,14 +14,15 @@
     }
 
     .game-cards-paginated {
+        border: pink 1px solid;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
         margin: 1rem;
         text-align: center;
-        justify-items: center;
-        width: 75%;
-        height: fit-content;
+        // justify-items: center;
+        // width: 75%;
+        // height: fit-content;
 
 
         @include respond(tablet-landscape) {
@@ -38,4 +37,32 @@
             grid-template-columns: 1fr;
         }
 
+    }
+
+    .filters-container {
+        border: yellowgreen solid 1px;
+        display: flex;
+        width: 12%;
+
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        width: 100%;
+    }
+
+
+    .filter-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10rem;
+
+        label {
+            width: 1rem;
+            white-space: nowrap;
+        }
     }
