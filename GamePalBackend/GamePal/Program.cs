@@ -2,11 +2,14 @@ using GamePal.Context;
 using GamePal.Data.DataSeeder;
 using GamePal.Data.Entities;
 using GamePal.Repositories.AuthProviderRepo;
+using GamePal.Repositories.GameCategoryRepo;
 using GamePal.Repositories.GameRepo;
 using GamePal.Repositories.PlatformRepo;
 using GamePal.Repositories.UserAuthProviders;
 using GamePal.Repositories.UserGameRepo;
+using GamePal.Services.CategoryService;
 using GamePal.Services.GameServices;
+using GamePal.Services.PlatformService;
 using GamePal.Services.UserGameServices;
 using GamePal.Services.UserServices;
 using LadleMeThis.Services.TokenService;
@@ -93,6 +96,9 @@ void AddServices(WebApplicationBuilder builder)
     builder.Services.AddScoped<IUserAuthProviderRepo, UserAuthProviderRepo>();
     builder.Services.AddScoped<IAuthProviderRepo, AuthProviderRepo>();
     builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
+    builder.Services.AddScoped<IPlatformService, PlatformService>();
+    builder.Services.AddScoped<IGameCategoryRepo, GameCategoryRepo>();
+    builder.Services.AddScoped<ICategoryService, CategoryService>();
 }
 
 void AddIdentityServices(WebApplicationBuilder builder)
