@@ -120,7 +120,7 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
               Previous
             </Link>
           )}
-          {currentPage * 16 >= initialGames.totalCount ? (
+          {currentPage * 32 >= initialGames.totalCount ? (
             <span className="primary-button disabled">Next</span>
           ) : (
             <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>
