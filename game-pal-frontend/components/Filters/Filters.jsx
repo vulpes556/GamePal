@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { getPlatforms, getGameCategories } from '@/scripts/scripts';
+import React, { useState, useEffect } from 'react';
 import { FiSearch, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 function Filters({
-    platforms = ['PC', 'PS 4', 'PS 5', 'Xbox Series X'],
-    genres = ["Survival", "FPS", "Sandbox", "Horror"],
+
+    // platforms = ['PC', 'PS 4', 'PS 5', 'Xbox Series X'],
+    // genres = ["Survival", "FPS", "Sandbox", "Horror"],
     selectedPlatforms = [],
     selectedGenres = [],
     searchTerm = '',
@@ -13,6 +15,27 @@ function Filters({
 }) {
     const [showPlatforms, setShowPlatforms] = useState(false);
     const [showGenres, setShowGenres] = useState(false);
+    const [platforms, setPlatforms] = useState();
+    const [genres, setGenres] = useState();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const [cats, plats] = await Promise.all([
+                    getGameCategories(),
+                    getPlatforms(),
+                ]);
+                setPlatforms(plats);
+                setGenres(cats);
+            } catch (error) {
+                console.error("Failed to fetch categories or platforms:", error);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+
 
     return (
         <div className="filters-container">
@@ -34,14 +57,14 @@ function Filters({
                         {showPlatforms ? <FiChevronUp /> : <FiChevronDown />}
                     </div>
                     <div className={`filter-content ${showPlatforms ? 'open' : 'closed'}`}>
-                        {platforms.map((platform) => (
-                            <div className="filter-item" key={platform}>
-                                <label htmlFor={`platform-${platform}`}>{platform}</label>
+                        {platforms?.map((platform) => (
+                            <div className="filter-item" key={platform.id}>
+                                <label htmlFor={`platform-${platform.id}`}>{platform.name}</label>
                                 <input
                                     type="checkbox"
-                                    id={`platform-${platform}`}
-                                    checked={selectedPlatforms.includes(platform)}
-                                    onChange={() => onPlatformChange(platform)}
+                                    id={`platform-${platform.id}`}
+                                    checked={selectedPlatforms.includes(platform.name)}
+                                    onChange={() => onPlatformChange(platform.name)}
                                 />
                             </div>
                         ))}
@@ -55,14 +78,14 @@ function Filters({
                         {showGenres ? <FiChevronUp /> : <FiChevronDown />}
                     </div>
                     <div className={`filter-content ${showGenres ? 'open' : 'closed'}`}>
-                        {genres.map((genre) => (
-                            <div className="filter-item" key={genre}>
-                                <label htmlFor={`genre-${genre}`}>{genre}</label>
+                        {genres?.map((genre) => (
+                            <div className="filter-item" key={genre.id}>
+                                <label htmlFor={`genre-${genre.id}`}>{genre.name}</label>
                                 <input
                                     type="checkbox"
-                                    id={`genre-${genre}`}
-                                    checked={selectedGenres.includes(genre)}
-                                    onChange={() => onGenreChange(genre)}
+                                    id={`genre-${genre.id}`}
+                                    checked={selectedGenres.includes(genre.name)}
+                                    onChange={() => onGenreChange(genre.name)}
                                 />
                             </div>
                         ))}

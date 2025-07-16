@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import GameCard from "@/components/GameCard/GameCard";
 import Modal from "@/components/Modal/Modal";
@@ -14,15 +14,16 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
   const [selectedGame, setSelectedGame] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState('');
 
-  // Combined filters state
+
   const [filters, setFilters] = useState({
     selectedPlatforms: searchParams.platform?.split(",") || [],
     selectedGenres: searchParams.genre?.split(",") || [],
     searchTerm: searchParams.name || "",
   });
 
-  // Handlers update the combined filters state
+
   const handlePlatformChange = (platform) => {
     setFilters((prev) => {
       const selectedPlatforms = prev.selectedPlatforms.includes(platform)
@@ -41,10 +42,11 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
     });
   };
 
+
   const handleSearchTermChange = (term) => {
+    setSearchTerm(term);
     setFilters(prev => ({ ...prev, searchTerm: term }));
   };
-
 
   useEffect(() => {
     setGames(initialGames.items || []);
@@ -52,16 +54,21 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
 
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    params.set("page", "1");
-    if (filters.searchTerm) params.set("name", filters.searchTerm);
-    if (filters.selectedPlatforms.length > 0)
-      params.set("platform", filters.selectedPlatforms.join(","));
-    if (filters.selectedGenres.length > 0)
-      params.set("genre", filters.selectedGenres.join(","));
+    const debounceTimer = setTimeout(() => {
+      const params = new URLSearchParams();
+      params.set("page", "1");
+      if (filters.searchTerm) params.set("name", filters.searchTerm);
+      if (filters.selectedPlatforms.length > 0)
+        params.set("platform", filters.selectedPlatforms.join(","));
+      if (filters.selectedGenres.length > 0)
+        params.set("genre", filters.selectedGenres.join(","));
 
-    router.push(`/add-game?${params.toString()}`);
-  }, [filters, router]);
+      router.push(`/add-game?${params.toString()}`);
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(debounceTimer); // cancel on new change
+  }, [filters]);
+
 
   function openModal(game) {
     setSelectedGame(game);
@@ -75,7 +82,7 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
   async function handlePlatformSelect(gameId, platformId) {
     try {
       await addGameToUserLibrary({ gameId, platformId });
-      // maybe show confirmation here
+      // maybe show confirmation here (later)
     } catch (e) {
       console.error(e);
     }
@@ -106,16 +113,21 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
         </div>
 
         <div className="pagination-controls">
-          {currentPage > 1 && (
+          {currentPage === 1 ? (
+            <span className="primary-button disabled">Previous</span>
+          ) : (
             <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>
               Previous
             </Link>
           )}
-          {currentPage * 8 < initialGames.totalCount && (
+          {currentPage * 16 >= initialGames.totalCount ? (
+            <span className="primary-button disabled">Next</span>
+          ) : (
             <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>
               Next
             </Link>
           )}
+
         </div>
       </div>
 

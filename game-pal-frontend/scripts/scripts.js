@@ -67,3 +67,34 @@ export async function addGameToUserLibrary(addGameToUserRequest) {
     if (!res.ok) throw new Error(`Add game failed: ${res.status}`);
     return res.json();
 }
+
+
+export async function getGameCategories() {
+    const res = await fetch(`backend/categories`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch categories: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
+export async function getPlatforms() {
+        const res = await fetch(`backend/platforms`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch platforms: ${res.status}`);
+    }
+
+    return await res.json();
+}
