@@ -48,17 +48,26 @@ namespace GamePal.Repositories.GameRepo
 
             if (!string.IsNullOrWhiteSpace(name))
             {
-                query = query.Where(g => g.Name.Contains(name));
+                name = name.ToLower();
+                query = query.Where(g => g.Name.ToLower().Contains(name));
             }
 
             if (!string.IsNullOrWhiteSpace(genre))
             {
-                query = query.Where(g => g.Categories.Any(c => c.Name == genre));
+                var genreList = genre.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                     .Select(g => g.Trim())
+                                     .ToList();
+
+                query = query.Where(g => g.Categories.Any(c => genreList.Contains(c.Name)));
             }
 
             if (!string.IsNullOrWhiteSpace(platform))
             {
-                query = query.Where(g => g.Platforms.Any(p => p.Name == platform));
+                var platformList = platform.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                           .Select(p => p.Trim())
+                                           .ToList();
+
+                query = query.Where(g => g.Platforms.Any(p => platformList.Contains(p.Name)));
             }
 
             var total = await query.CountAsync();
