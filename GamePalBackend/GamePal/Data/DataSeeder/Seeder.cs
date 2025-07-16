@@ -172,372 +172,91 @@ namespace GamePal.Data.DataSeeder
                 var platformByName = allPlatforms.ToDictionary(p => p.Name, StringComparer.OrdinalIgnoreCase);
 
 
+                string imageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg";
+
+                List<GameCategory> catList(params string[] names) => names.Select(n => catByName[n]).ToList();
+                List<Platform> platformList(params string[] names) => names.Select(n => platformByName[n]).ToList();
+
                 var games = new[]
                 {
-                new Game
-                {
-                    Name = "PlayerUnknown’s Battlegrounds",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                         catByName["Battle Royale"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["PS 5"]
-                    }
-                },
-                new Game
-                {
-                    Name = "Escape From Tarkov",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Extraction Shooter"],
-                       catByName["FPS"]
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["PS 5"]
-                    }
-                },
-                new Game
-                {
-                    Name = "Chained Together",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Platformer"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["PS 5"]
-                    }
+                new Game { Name = "PlayerUnknown’s Battlegrounds", ImageUrl = imageUrl, Categories = catList("Battle Royale"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Escape From Tarkov", ImageUrl = imageUrl, Categories = catList("Extraction Shooter", "FPS"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Chained Together", ImageUrl = imageUrl, Categories = catList("Platformer"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Raft", ImageUrl = imageUrl, Categories = catList("Adventure", "Survival"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Satisfactory", ImageUrl = imageUrl, Categories = catList("Sandbox"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Factorio", ImageUrl = imageUrl, Categories = catList("Sandbox"), Platforms = platformList("PS 5") },
+                new Game { Name = "Europa Universalis IV", ImageUrl = imageUrl, Categories = catList("Strategy"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Minecraft", ImageUrl = imageUrl, Categories = catList("Sandbox", "Survival"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Call of Duty: Modern Warfare II", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Apex Legends", ImageUrl = imageUrl, Categories = catList("Battle Royale", "FPS"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Rust", ImageUrl = imageUrl, Categories = catList("Survival", "FPS"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "The Forest", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Fortnite", ImageUrl = imageUrl, Categories = catList("Battle Royale", "Sandbox"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Valheim", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC") },
+                new Game { Name = "Deep Rock Galactic", ImageUrl = imageUrl, Categories = catList("FPS", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Grounded", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Overcooked! 2", ImageUrl = imageUrl, Categories = catList("Platformer"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Phasmophobia", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC") },
+                new Game { Name = "Don't Starve Together", ImageUrl = imageUrl, Categories = catList("Survival", "Sandbox"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Terraria", ImageUrl = imageUrl, Categories = catList("Sandbox", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "ARK: Survival Evolved", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Halo Infinite", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Gears 5", ImageUrl = imageUrl, Categories = catList("FPS", "Adventure"), Platforms = platformList("PC", "Xbox Series X") },
 
-                },
-                new Game
-                {
-                    Name = "Raft",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Adventure"],
-                       catByName["Survival"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["PS 5"]
-                    }
+                new Game { Name = "Warframe", ImageUrl = imageUrl, Categories = catList("FPS", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Killing Floor 2", ImageUrl = imageUrl, Categories = catList("FPS", "Survival"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Left 4 Dead 2", ImageUrl = imageUrl, Categories = catList("FPS", "Survival"), Platforms = platformList("PC") },
+                new Game { Name = "The Division 2", ImageUrl = imageUrl, Categories = catList("FPS", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Borderlands 3", ImageUrl = imageUrl, Categories = catList("FPS", "Sandbox"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Payday 2", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Dying Light", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "7 Days to Die", ImageUrl = imageUrl, Categories = catList("Survival", "Sandbox"), Platforms = platformList("PC") },
+                new Game { Name = "No Man's Sky", ImageUrl = imageUrl, Categories = catList("Adventure", "Survival"), Platforms = platformList("PC", "PS 5") },
 
-                },
-                new Game
-                {
-                    Name = "Satisfactory",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Sandbox"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["Xbox Series X"]
-                    }
-                },
-                new Game
-                {
-                    Name = "Factorio",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Sandbox"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PS 5"]
-                    }
-                },
-                new Game
-                {
-                    Name = "Europa Universalis IV",
-                    ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                    Categories = new List<GameCategory>
-                     {
-                       catByName["Strategy"],
-                     },
-                    Platforms = new List<Platform>
-                    {
-                        platformByName["PC"],
-                        platformByName["PS 4"]
-                    }
+                new Game { Name = "Hunt: Showdown", ImageUrl = imageUrl, Categories = catList("FPS", "Extraction Shooter"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Back 4 Blood", ImageUrl = imageUrl, Categories = catList("FPS", "Survival"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Hell Let Loose", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Squad", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC") },
+                new Game { Name = "Starbound", ImageUrl = imageUrl, Categories = catList("Sandbox", "Survival"), Platforms = platformList("PC") },
+                new Game { Name = "V Rising", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC") },
+                new Game { Name = "The Cycle: Frontier", ImageUrl = imageUrl, Categories = catList("Extraction Shooter"), Platforms = platformList("PC") },
+                new Game { Name = "Among Us", ImageUrl = imageUrl, Categories = catList("Strategy"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Project Zomboid", ImageUrl = imageUrl, Categories = catList("Survival", "Strategy"), Platforms = platformList("PC") },
+                new Game { Name = "Enlisted", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC", "PS 5") },
 
-                },
-                new Game
-            {
-                Name = "Minecraft",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Sandbox"],
-                    catByName["Survival"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"]
-                }
-            },
-            new Game
-            {
-                Name = "Call of Duty: Modern Warfare II",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["FPS"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"],
-                    platformByName["Xbox Series X"]
-                }
-            },
-            new Game
-            {
-                Name = "Apex Legends",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Battle Royale"],
-                    catByName["FPS"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"]
-                }
-            },
-            new Game
-            {
-                Name = "Rust",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Survival"],
-                    catByName["FPS"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"]
-                }
-            },
-            new Game
-            {
-                Name = "The Forest",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Survival"],
-                    catByName["Adventure"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 4"]
-                }
-            },
-            new Game
-            {
-                Name = "Fortnite",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Battle Royale"],
-                    catByName["Sandbox"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"],
-                    platformByName["Xbox Series X"]
-                }
-            },
-            new Game
-            {
-                Name = "Valheim",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Survival"],
-                    catByName["Adventure"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"]
-                }
-            },
-            new Game
-            {
-                Name = "ARK: Survival Evolved",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["Survival"],
-                    catByName["Adventure"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 4"]
-                }
-            },
-            new Game
-            {
-                Name = "Deep Rock Galactic",
-                ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-                Categories = new List<GameCategory>
-                {
-                    catByName["FPS"],
-                    catByName["Adventure"]
-                },
-                Platforms = new List<Platform>
-                {
-                    platformByName["PC"],
-                    platformByName["PS 5"]
-                }
-            },
-                new Game {
-        Name = "Fortnite",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Battle Royale"], catByName["Sandbox"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 4"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Among Us",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Strategy"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Helldivers 2",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["SandBox"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"] }
-    },
-    new Game {
-        Name = "The Finals",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "It Takes Two",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Platformer"], catByName["Adventure"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 4"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Forza Horizon 5",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Sandbox"], catByName["Adventure"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Destiny 2",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Apex Legends",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Battle Royale"], catByName["FPS"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Back 4 Blood",
-        ImageUrl =      "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Monster Hunter Wilds",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Adventure"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Portal 2",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Platformer"], catByName["Strategy"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 4"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Stardew Valley",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Sandbox"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Sea of Thieves",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Adventure"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Rocket League",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Strategy"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Back 4 Blood",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Don't Starve Together",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["Survival"], catByName["Sandbox"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Overwatch 2",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Strategy"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Halo Infinite",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Rainbow Six Extraction",
-        ImageUrl =  "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Strategy"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Deep Rock Galactic",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    },
-    new Game {
-        Name = "Back 4 Blood",
-        ImageUrl = "https://devimages-cdn.apple.com/wwdc-services/articles/images/3D5F5DD3-14F7-4384-94C0-798D15EE7CD7/2048.jpeg",
-        Categories = new List<GameCategory> { catByName["FPS"], catByName["Survival"] },
-        Platforms = new List<Platform> { platformByName["PC"], platformByName["PS 5"], platformByName["Xbox Series X"] }
-    }
+                new Game { Name = "Fall Guys", ImageUrl = imageUrl, Categories = catList("Platformer"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Human: Fall Flat", ImageUrl = imageUrl, Categories = catList("Platformer", "Sandbox"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Totally Accurate Battlegrounds", ImageUrl = imageUrl, Categories = catList("Battle Royale"), Platforms = platformList("PC") },
+                new Game { Name = "CRSED: F.O.A.D.", ImageUrl = imageUrl, Categories = catList("Battle Royale", "FPS"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Z1 Battle Royale", ImageUrl = imageUrl, Categories = catList("Battle Royale"), Platforms = platformList("PC") },
+                new Game { Name = "Super Animal Royale", ImageUrl = imageUrl, Categories = catList("Battle Royale"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Rogue Company", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Warface", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "CrossfireX", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("Xbox Series X") },
+                new Game { Name = "Operation: Harsh Doorstop", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC") },
 
+                new Game { Name = "Unturned", ImageUrl = imageUrl, Categories = catList("Survival"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Eco", ImageUrl = imageUrl, Categories = catList("Strategy", "Sandbox"), Platforms = platformList("PC") },
+                new Game { Name = "The Wild Eight", ImageUrl = imageUrl, Categories = catList("Survival"), Platforms = platformList("PC") },
+                new Game { Name = "Risk of Rain 2", ImageUrl = imageUrl, Categories = catList("Platformer", "Adventure"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Move or Die", ImageUrl = imageUrl, Categories = catList("Platformer"), Platforms = platformList("PC") },
+                new Game { Name = "SpeedRunners", ImageUrl = imageUrl, Categories = catList("Platformer"), Platforms = platformList("PC") },
+                new Game { Name = "Tribes of Midgard", ImageUrl = imageUrl, Categories = catList("Survival", "Adventure"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "Citadel: Forged with Fire", ImageUrl = imageUrl, Categories = catList("Survival", "Sandbox"), Platforms = platformList("PC", "PS 4") },
+                new Game { Name = "Myth of Empires", ImageUrl = imageUrl, Categories = catList("Survival", "Strategy"), Platforms = platformList("PC") },
+                new Game { Name = "Survive the Nights", ImageUrl = imageUrl, Categories = catList("Survival"), Platforms = platformList("PC") },
+                new Game { Name = "Helldivers 2", ImageUrl = imageUrl, Categories = catList("FPS", "Sandbox"), Platforms = platformList("PC", "PS 5") },
+                new Game { Name = "The Finals", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "It Takes Two", ImageUrl = imageUrl, Categories = catList("Platformer", "Adventure"), Platforms = platformList("PC", "PS 4", "PS 5", "Xbox Series X") },
+                new Game { Name = "Forza Horizon 5", ImageUrl = imageUrl, Categories = catList("Sandbox", "Adventure"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Destiny 2", ImageUrl = imageUrl, Categories = catList("FPS"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Monster Hunter Wilds", ImageUrl = imageUrl, Categories = catList("Adventure", "Survival"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Portal 2", ImageUrl = imageUrl, Categories = catList("Platformer", "Strategy"), Platforms = platformList("PC", "PS 4", "PS 5", "Xbox Series X") },
+                new Game { Name = "Stardew Valley", ImageUrl = imageUrl, Categories = catList("Sandbox", "Survival"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Sea of Thieves", ImageUrl = imageUrl, Categories = catList("Adventure", "Survival"), Platforms = platformList("PC", "Xbox Series X") },
+                new Game { Name = "Rocket League", ImageUrl = imageUrl, Categories = catList("Strategy"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Overwatch 2", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
+                new Game { Name = "Rainbow Six Extraction", ImageUrl = imageUrl, Categories = catList("FPS", "Strategy"), Platforms = platformList("PC", "PS 5", "Xbox Series X") },
             };
 
                 _dbContext.Games.AddRange(games);
