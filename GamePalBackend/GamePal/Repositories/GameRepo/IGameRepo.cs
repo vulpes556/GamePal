@@ -7,9 +7,7 @@ namespace GamePal.Repositories.GameRepo
     {
         public Task<IEnumerable<Game>> GetAllAsync();
         public Task<Game> FindByIdAsync(int id);
-        public Task<PagedResult<Game>> GetPagedAsync(int page, int pageSize);
-
-
+        public Task<PagedResult<Game>> GetPagedAsync(int page, int pageSize, string? name, string? genre, string? platform);
     }
 
 }

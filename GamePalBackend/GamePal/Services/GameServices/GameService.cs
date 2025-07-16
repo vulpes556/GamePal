@@ -22,9 +22,9 @@ namespace GamePal.Services.GameServices
             return games.Select(ToDTO);
         }
 
-        public async Task<PagedResult<GameDTO>> GetGamesAsync(int page, int pageSize)
+        public async Task<PagedResult<GameDTO>> GetGamesAsync(int page, int pageSize, string? genre, string? name, string? platform)
         {
-          var result = await _gameRepository.GetPagedAsync(page, pageSize);
+            var result = await _gameRepository.GetPagedAsync(page, pageSize, name, genre, platform);
 
             return new PagedResult<GameDTO>()
             {

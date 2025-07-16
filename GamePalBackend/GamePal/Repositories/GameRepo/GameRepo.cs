@@ -31,7 +31,12 @@ namespace GamePal.Repositories.GameRepo
                 .ToListAsync();
         }
 
-        public async Task<PagedResult<Game>> GetPagedAsync(int page, int pageSize)
+        public async Task<PagedResult<Game>> GetPagedAsync(
+            int page,
+            int pageSize,
+            string? name = null,
+            string? genre = null,
+            string? platform = null)
         {
             if (page < 1) throw new ArgumentOutOfRangeException(nameof(page));
             if (pageSize < 1) throw new ArgumentOutOfRangeException(nameof(pageSize));
@@ -40,6 +45,21 @@ namespace GamePal.Repositories.GameRepo
                                   .Include(g => g.Categories)
                                   .Include(g => g.Platforms)
                                   .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(g => g.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrWhiteSpace(genre))
+            {
+                query = query.Where(g => g.Categories.Any(c => c.Name == genre));
+            }
+
+            if (!string.IsNullOrWhiteSpace(platform))
+            {
+                query = query.Where(g => g.Platforms.Any(p => p.Name == platform));
+            }
 
             var total = await query.CountAsync();
 

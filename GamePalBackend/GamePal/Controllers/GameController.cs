@@ -17,11 +17,16 @@ namespace GamePal.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetGamesAsync( [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetGamesAsync(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? genre = null,
+            [FromQuery] string? name = null,
+            [FromQuery] string? platform = null)
         {
             try
             {
-                var pagedResult = await _gameService.GetGamesAsync(page, pageSize);
+                var pagedResult = await _gameService.GetGamesAsync(page, pageSize, genre, name, platform);
                 return Ok(pagedResult);
             }
             catch (Exception ex)
@@ -30,5 +35,6 @@ namespace GamePal.Controllers
                 return NotFound();
             }
         }
+
     }
 }
