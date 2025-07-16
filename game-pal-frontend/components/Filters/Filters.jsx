@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FiSearch } from "react-icons/fi";
 
 const Filters = () => {
     const [selectedPlatforms, setSelectedPlatforms] = useState([]);
@@ -28,6 +29,9 @@ const Filters = () => {
     return (
         <div className="filters-container">
             <div className="filters">
+                <div className='search-bar'>
+                <input type="text" /><FiSearch className='search-icon' />
+                </div>
                 <h4>Platforms</h4>
                 {platforms.map((platform) => (
                     <div className="filter-item" key={platform}>

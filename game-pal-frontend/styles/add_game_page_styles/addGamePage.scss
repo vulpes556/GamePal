@@ -4,46 +4,65 @@
         align-items: flex-start;
         height: fit-content;
         padding-top: 10rem; //navbar height (make it imported in the future)
+        // width: 100%;
 
         .pagination-controls {
             display: flex;
             flex-direction: row;
             gap: 1rem;
+            justify-content: center;
         }
+
+        .cards-navigation {
+            width: 100%;
+        }
+
+        @include respond(tablet-landscape) {
+            // grid-template-columns: repeat(4, 1fr);
+        }
+
+        @include respond(tablet-portrait) {
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+        }
+
+        @include respond(phone) {
+            flex-direction: column;
+
+        }
+
 
     }
 
     .game-cards-paginated {
-        border: pink 1px solid;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
+
+        display: flex;
+        flex-wrap: wrap;
+        place-content: center;
+
         gap: 1rem;
-        margin: 1rem;
+        border: pink 1px solid;
+        gap: 2rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
         text-align: center;
-        // justify-items: center;
-        // width: 75%;
-        // height: fit-content;
-
-
-        @include respond(tablet-landscape) {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        @include respond(tablet-portrait) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        @include respond(phone) {
-            grid-template-columns: 1fr;
-        }
-
+        justify-content: center;
+        justify-items: center;
     }
 
     .filters-container {
         border: yellowgreen solid 1px;
         display: flex;
         width: 12%;
+        min-width: 16rem;
 
+        @include respond(tablet-portrait) {
+            margin-bottom: 1rem;
+
+        }
     }
 
     .filters {
@@ -65,4 +84,19 @@
             width: 1rem;
             white-space: nowrap;
         }
+
+        input {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+
+    .search-bar {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .search-icon {
+        font-size: 2rem;
     }

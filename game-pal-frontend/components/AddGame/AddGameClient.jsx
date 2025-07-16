@@ -40,7 +40,7 @@ export default function AddGameClient({ initialGames, currentPage }) {
   return (
     <div className="add-game-main">
       <Filters />
-      <div>
+      <div className="cards-navigation">
         <div className="game-cards-paginated">
           {games?.length > 0 ? (
             games?.map((g) => (
