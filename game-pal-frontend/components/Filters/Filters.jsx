@@ -1,40 +1,29 @@
 import React, { useState } from 'react';
-import { FiSearch } from "react-icons/fi";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { FiSearch, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-const Filters = () => {
-    const [selectedPlatforms, setSelectedPlatforms] = useState([]);
-    const [selectedGenres, setSelectedGenres] = useState([]);
+function Filters({
+    platforms = ['PC', 'PS 4', 'PS 5', 'Xbox Series X'],
+    genres = ["Survival", "FPS", "Sandbox", "Horror"],
+    selectedPlatforms = [],
+    selectedGenres = [],
+    searchTerm = '',
+    onSearchTermChange,
+    onPlatformChange,
+    onGenreChange,
+}) {
     const [showPlatforms, setShowPlatforms] = useState(false);
     const [showGenres, setShowGenres] = useState(false);
-
-
-
-    // fetch these from the backend
-    const platforms = ['PC', 'PS 4', 'PS 5', 'Xbox Series X'];
-    const genres = ["Survival", "FPS", "Sandbox", "Horror"]
-
-    const handlePlatformCheckboxChange = (platform) => {
-        setSelectedPlatforms((prev) =>
-            prev.includes(platform)
-                ? prev.filter((item) => item !== platform)
-                : [...prev, platform]
-        );
-    };
-
-    const handleGenreCheckboxChange = (genre) => {
-        setSelectedGenres((prev) =>
-            prev.includes(genre)
-                ? prev.filter((item) => item !== genre)
-                : [...prev, genre]
-        );
-    };
 
     return (
         <div className="filters-container">
             <div className="filters">
                 <div className="search-bar">
-                    <input type="text" />
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => onSearchTermChange(e.target.value)}
+                        placeholder="Search games..."
+                    />
                     <FiSearch className="search-icon" />
                 </div>
 
@@ -44,7 +33,6 @@ const Filters = () => {
                         <h4>Platforms</h4>
                         {showPlatforms ? <FiChevronUp /> : <FiChevronDown />}
                     </div>
-
                     <div className={`filter-content ${showPlatforms ? 'open' : 'closed'}`}>
                         {platforms.map((platform) => (
                             <div className="filter-item" key={platform}>
@@ -53,7 +41,7 @@ const Filters = () => {
                                     type="checkbox"
                                     id={`platform-${platform}`}
                                     checked={selectedPlatforms.includes(platform)}
-                                    onChange={() => handlePlatformCheckboxChange(platform)}
+                                    onChange={() => onPlatformChange(platform)}
                                 />
                             </div>
                         ))}
@@ -67,7 +55,6 @@ const Filters = () => {
                         {showGenres ? <FiChevronUp /> : <FiChevronDown />}
                     </div>
                     <div className={`filter-content ${showGenres ? 'open' : 'closed'}`}>
-
                         {genres.map((genre) => (
                             <div className="filter-item" key={genre}>
                                 <label htmlFor={`genre-${genre}`}>{genre}</label>
@@ -75,7 +62,7 @@ const Filters = () => {
                                     type="checkbox"
                                     id={`genre-${genre}`}
                                     checked={selectedGenres.includes(genre)}
-                                    onChange={() => handleGenreCheckboxChange(genre)}
+                                    onChange={() => onGenreChange(genre)}
                                 />
                             </div>
                         ))}
@@ -84,7 +71,6 @@ const Filters = () => {
             </div>
         </div>
     );
-
-};
+}
 
 export default Filters;

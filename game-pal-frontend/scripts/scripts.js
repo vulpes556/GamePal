@@ -32,10 +32,15 @@ export async function registerUser(registrationData) {
     return data;
 }
 
-export async function fetchGames(page = 1, pageSize = 10) {
+export async function fetchGames(page = 1, pageSize = 10, genre, name, platform) {
     const url = new URL(`${backendUrl}/games`);
     url.searchParams.set("page", page);
     url.searchParams.set("pageSize", pageSize);
+
+    if (genre) url.searchParams.set("genre", genre);
+    if (name) url.searchParams.set("name", name);
+    if (platform) url.searchParams.set("platform", platform);
+
 
     const res = await fetch(url.toString(), {
         method: "GET",

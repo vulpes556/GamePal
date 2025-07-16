@@ -7,22 +7,65 @@ import Modal from "@/components/Modal/Modal";
 import Image from "next/image";
 import { addGameToUserLibrary } from "@/scripts/scripts";
 import Filters from "../Filters/Filters";
+import { useRouter } from 'next/navigation';
 
-export default function AddGameClient({ initialGames, currentPage }) {
-  const [games, setGames] = useState(initialGames.items);
+export default function AddGameClient({ searchParams = {}, initialGames, currentPage }) {
+  const [games, setGames] = useState(initialGames.items || []);
   const [selectedGame, setSelectedGame] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const router = useRouter();
+
+  // Combined filters state
+  const [filters, setFilters] = useState({
+    selectedPlatforms: searchParams.platform?.split(",") || [],
+    selectedGenres: searchParams.genre?.split(",") || [],
+    searchTerm: searchParams.name || "",
+  });
+
+  // Handlers update the combined filters state
+  const handlePlatformChange = (platform) => {
+    setFilters((prev) => {
+      const selectedPlatforms = prev.selectedPlatforms.includes(platform)
+        ? prev.selectedPlatforms.filter(p => p !== platform)
+        : [...prev.selectedPlatforms, platform];
+      return { ...prev, selectedPlatforms };
+    });
+  };
+
+  const handleGenreChange = (genre) => {
+    setFilters((prev) => {
+      const selectedGenres = prev.selectedGenres.includes(genre)
+        ? prev.selectedGenres.filter(g => g !== genre)
+        : [...prev.selectedGenres, genre];
+      return { ...prev, selectedGenres };
+    });
+  };
+
+  const handleSearchTermChange = (term) => {
+    setFilters(prev => ({ ...prev, searchTerm: term }));
+  };
 
 
   useEffect(() => {
-    setGames(initialGames.items);
+    setGames(initialGames.items || []);
   }, [initialGames]);
+
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.set("page", "1");
+    if (filters.searchTerm) params.set("name", filters.searchTerm);
+    if (filters.selectedPlatforms.length > 0)
+      params.set("platform", filters.selectedPlatforms.join(","));
+    if (filters.selectedGenres.length > 0)
+      params.set("genre", filters.selectedGenres.join(","));
+
+    router.push(`/add-game?${params.toString()}`);
+  }, [filters, router]);
 
   function openModal(game) {
     setSelectedGame(game);
   }
-
-  console.log("selected game:", selectedGame)
 
   function closeModal() {
     setIsDropdownOpen(false);
@@ -31,51 +74,68 @@ export default function AddGameClient({ initialGames, currentPage }) {
 
   async function handlePlatformSelect(gameId, platformId) {
     try {
-      await addGameToUserLibrary({ gameId, platformId })
+      await addGameToUserLibrary({ gameId, platformId });
+      // maybe show confirmation here
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 
   return (
     <div className="add-game-main">
-      <Filters />
+      <Filters
+        selectedPlatforms={filters.selectedPlatforms}
+        selectedGenres={filters.selectedGenres}
+        searchTerm={filters.searchTerm}
+        onSearchTermChange={handleSearchTermChange}
+        onPlatformChange={handlePlatformChange}
+        onGenreChange={handleGenreChange}
+      />
+
       <div className="cards-navigation">
         <div className="game-cards-paginated">
-          {games?.length > 0 ? (
-            games?.map((g) => (
+          {games.length > 0 ? (
+            games.map((g) => (
               <div key={g.gameId} onClick={() => openModal(g)}>
                 <GameCard game={g} />
               </div>
             ))
           ) : (
-            <div>No games found or failed to load games.</div>
+            <h1>No games found or failed to load games.</h1>
           )}
         </div>
 
         <div className="pagination-controls">
           {currentPage > 1 && (
-            <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>Previous</Link>
+            <Link className="primary-button" href={`/add-game?page=${currentPage - 1}`}>
+              Previous
+            </Link>
           )}
-          {
-            currentPage * 8 < initialGames.totalCount && (
-              <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>Next</Link>
-            )
-          }
+          {currentPage * 8 < initialGames.totalCount && (
+            <Link className="primary-button" href={`/add-game?page=${currentPage + 1}`}>
+              Next
+            </Link>
+          )}
         </div>
       </div>
+
       <Modal isOpen={!!selectedGame} onClose={closeModal}>
         {selectedGame && (
           <>
-            <div className="img-container" >
-              <Image fill alt="Picture of the game" src={selectedGame?.pictureUrl || "/gameImage.png"} />
+            <div className="img-container">
+              <Image
+                fill
+                alt="Picture of the game"
+                src={selectedGame?.pictureUrl || "/gameImage.png"}
+              />
             </div>
             <h2>{selectedGame.name}</h2>
             <p>Categories: [{selectedGame.categories.map(c => c.name).join(", ")}]</p>
             <div className="dropdown-wrapper">
-              <button onClick={() => {
-                setIsDropdownOpen(prev => !prev);
-              }} className="primary-button">
+              <button
+                onClick={() => setIsDropdownOpen((prev) => !prev)}
+                className="primary-button"
+              >
                 Add game
               </button>
 
@@ -93,7 +153,6 @@ export default function AddGameClient({ initialGames, currentPage }) {
                 </ul>
               )}
             </div>
-
           </>
         )}
       </Modal>
