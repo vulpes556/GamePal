@@ -1,8 +1,10 @@
-﻿using GamePal.Models.AuthContracts;
+﻿using GamePal.DTOs.Requests;
+using GamePal.Models.AuthContracts;
 using GamePal.Services.UserServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GamePal.Controllers
 {
@@ -130,6 +132,25 @@ namespace GamePal.Controllers
             return Ok();
         }
 
+
+        [Authorize]
+        [HttpPost("add-game")]
+        public async Task<IActionResult> AddGameToUserLibrary([FromBody] AddGameToUserDto addGameRequest)
+        {
+            try
+            {
+                //pass game id, user id, platform id
+
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _userService.AddGameToUserLibraryAsync(userId,addGameRequest);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
 
         private void AddErrors(AuthResult result)
         {

@@ -299,6 +299,21 @@ namespace GamePal.Migrations
                     b.ToTable("UserGames");
                 });
 
+            modelBuilder.Entity("GamePlatform", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PlatformsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GamesId", "PlatformsId");
+
+                    b.HasIndex("PlatformsId");
+
+                    b.ToTable("GamePlatform");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -512,6 +527,21 @@ namespace GamePal.Migrations
                     b.Navigation("Platform");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GamePlatform", b =>
+                {
+                    b.HasOne("GamePal.Data.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GamePal.Data.Entities.Platform", null)
+                        .WithMany()
+                        .HasForeignKey("PlatformsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

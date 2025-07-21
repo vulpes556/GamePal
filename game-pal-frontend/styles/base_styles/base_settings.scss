@@ -80,7 +80,6 @@ html {
     transition: background-color 0.3s, color 0.3s;
     background-color: $background-light;
     color: $text;
-
 }
 
 body {
@@ -139,7 +138,9 @@ input {
 }
 
 
-
+img {
+    object-fit: cover;
+}
 
 
 
@@ -167,6 +168,21 @@ button {
     display: flex;
     flex-direction: column;
     height: 100svh;
+}
+
+.modal-backdrop {
+    background: rgba(0, 0, 0, 0.486);
+    backdrop-filter: blur(10px);
+}
+
+
+.modal-content {
+    background: $modal-background-light;
+}
+
+.navbar {
+    background: $background-light;
+    transition: background-color 0.3s ease;
 }
 
 
@@ -200,6 +216,14 @@ html.dark-mode {
         &:active {
             outline: none;
         }
+    }
+
+    .modal-content {
+        background: #8b7e69c4;
+    }
+
+    .navbar {
+        background: $background;
     }
 
 }
@@ -237,4 +261,10 @@ html.dark-mode {
 
 .error {
     color: red;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
 }

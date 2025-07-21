@@ -1,4 +1,6 @@
 ﻿using GamePal.Data.Entities;
+using GamePal.DTOs;
+using GamePal.DTOs.GameModels;
 using GamePal.Models.GameModels;
 using GamePal.Repositories.GameRepo;
 
@@ -14,10 +16,48 @@ namespace GamePal.Services.GameServices
             _gameRepository = gameRepo;
         }
 
-        public Task<IEnumerable<GameDTO>> GetAllAsync()
+        public async Task<IEnumerable<GameDTO>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var games = await _gameRepository.GetAllAsync();
+            return games.Select(ToDTO);
         }
+
+        public async Task<PagedResult<GameDTO>> GetGamesAsync(int page, int pageSize, string? genre, string? name, string? platform)
+        {
+            var result = await _gameRepository.GetPagedAsync(page, pageSize, name, genre, platform);
+
+            return new PagedResult<GameDTO>()
+            {
+                Items = result.Items.Select(ToDTO),
+                TotalCount = result.TotalCount,
+            };
+        }
+
+        private GameDTO ToDTO(Game game)
+        {
+            return new GameDTO()
+            {
+                GameId = game.Id,
+                Name = game.Name,
+                PictureUrl = game.ImageUrl,
+                Categories = game.Categories.Select(g => new GameCategoryDTO()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                }
+                ).ToList(),
+                Platforms = game.Platforms.Select(g => new PlatformDTO()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                })
+                .ToList(),
+            };
+        }
+
+
+
     }
+
 
 }

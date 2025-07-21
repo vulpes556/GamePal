@@ -12,6 +12,14 @@ namespace GamePal.Repositories.PlatformRepo
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Platform> FindByIdAsync(int id)
+        {
+            return await _dbContext.Platforms
+                .Include(p=> p.Games)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
         public async Task<IEnumerable<Platform>> GetAllAsync()
         {
             return await _dbContext.Platforms.ToListAsync();

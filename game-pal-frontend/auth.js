@@ -87,7 +87,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   callbacks: {
 
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account, }) {
       if (account.provider === "credentials") {
         return true;
       }
@@ -113,6 +113,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const body = await res.json();
         if (body.token) {
           user.token = body.token;
+          user.id = body.id;
           return true;
         }
         if (!body.success) {
@@ -137,7 +138,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 
     async session({ session, token }) {
-      session.accessToken = token.accessToken;
       session.user.id = token.id;
       session.user.email = token.email;
       return session;

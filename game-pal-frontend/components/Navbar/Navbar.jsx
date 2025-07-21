@@ -1,7 +1,6 @@
 import ThemeToggleBtn from "../ThemeToggler/ThemeTogglerBtn";
 import { SiYoutubegaming } from "react-icons/si";
 import Link from "next/link";
-import LoggedInStatus from "../LoggedInStatus/LoggedInStatus";
 import LogoutButton from "../LogoutButton/LogoutButton";
 import { auth } from "@/auth.js"
 
@@ -16,7 +15,6 @@ export default async function Navbar() {
                     <h1> <SiYoutubegaming /> GamePal</h1>
                 </Link>
             </div>
-            <LoggedInStatus />
             <div className="navbar-right">
                 {
                     !session?.user ?
