@@ -56,7 +56,7 @@ export default function AddGameClient({ searchParams = {}, initialGames, current
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       const params = new URLSearchParams();
-      params.set("page", "1");
+      // params.set("page", "1");
       if (filters.searchTerm) params.set("name", filters.searchTerm);
       if (filters.selectedPlatforms.length > 0)
         params.set("platform", filters.selectedPlatforms.join(","));
